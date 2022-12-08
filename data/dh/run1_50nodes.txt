@@ -1,0 +1,918 @@
+Dec  5 22:08:30.261466	[34mINFO[0m	using home directory: /Users/danielchoi/testground
+Dec  5 22:08:30.261864	[34mINFO[0m	.env.toml loaded from: /Users/danielchoi/testground/.env.toml
+Dec  5 22:08:30.261892	[34mINFO[0m	testground client initialized	{"addr": "http://localhost:8042"}
+[1;92m
+>>> Result:
+[0m
+Dec  5 22:08:30.516448	[34mINFO[0m	run is queued with ID: ce76nnnrirfmm1bnto2g
+[1;36m
+>>> Server output:
+[0m
+Dec  5 22:08:30.660533	[34mINFO[0m	performing build for groups	{"plan": "dht", "groups": ["balsam-dialable-provider"], "builder": "docker:go"}
+Dec  5 22:08:30.660567	[34mINFO[0m	performing build for groups	{"plan": "dht", "groups": ["cypress-provider"], "builder": "docker:go"}
+Dec  5 22:08:30.795332	[34mINFO[0m	found existing volume	{"volume_name": "testground-goproxy-vol"}
+Dec  5 22:08:30.857073	[34mINFO[0m	container is already running	{"container_name": "testground-goproxy"}
+Dec  5 22:08:30.966791	[34mINFO[0m	found existing volume	{"volume_name": "testground-goproxy-vol"}
+Dec  5 22:08:31.027278	[34mINFO[0m	container is already running	{"container_name": "testground-goproxy"}
+Step 1/29 : ARG BUILD_BASE_IMAGE
+Step 2/29 : ARG RUNTIME_IMAGE=busybox:1.31.1-glibc
+Step 3/29 : FROM ${BUILD_BASE_IMAGE} AS builder
+Step 1/29 : ARG BUILD_BASE_IMAGE
+Step 2/29 : ARG RUNTIME_IMAGE=busybox:1.31.1-glibc
+Step 3/29 : FROM ${BUILD_BASE_IMAGE} AS builder
+ ---> 31dfc2b65d89
+Step 4/29 : ARG PLAN_PATH
+ ---> 31dfc2b65d89
+Step 4/29 : ARG PLAN_PATH
+ ---> Using cache
+ ---> 1bcd4cabc960
+Step 5/29 : ENV PLAN_DIR /plan/${PLAN_PATH}
+ ---> Using cache
+ ---> 1bcd4cabc960
+Step 5/29 : ENV PLAN_DIR /plan/${PLAN_PATH}
+ ---> Using cache
+ ---> 9bbc09c7cfd3
+Step 6/29 : ENV SDK_DIR /sdk
+ ---> Using cache
+ ---> 9bbc09c7cfd3
+Step 6/29 : ENV SDK_DIR /sdk
+ ---> Using cache
+ ---> e8ab9a32cce3
+Step 7/29 : RUN rm -rf ${PLAN_DIR} ${SDK_DIR} /testground_dep_list
+ ---> Using cache
+ ---> 4800b044116f
+Step 8/29 : ARG TESTPLAN_EXEC_PKG="."
+ ---> Using cache
+ ---> e8ab9a32cce3
+Step 7/29 : RUN rm -rf ${PLAN_DIR} ${SDK_DIR} /testground_dep_list
+ ---> Using cache
+ ---> 022e004b56df
+Step 9/29 : ARG GO_PROXY=direct
+ ---> Using cache
+ ---> 6f729bf3acba
+Step 10/29 : ARG BUILD_TAGS
+ ---> Using cache
+ ---> 9f4b922c4ebc
+Step 11/29 : ENV TESTPLAN_EXEC_PKG ${TESTPLAN_EXEC_PKG}
+ ---> Using cache
+ ---> 4800b044116f
+Step 8/29 : ARG TESTPLAN_EXEC_PKG="."
+ ---> Using cache
+ ---> 022e004b56df
+Step 9/29 : ARG GO_PROXY=direct
+ ---> Using cache
+ ---> 6f729bf3acba
+Step 10/29 : ARG BUILD_TAGS
+ ---> Using cache
+ ---> 31ec9edb8477
+Step 12/29 : ENV GOCACHE /go/cache
+ ---> Using cache
+ ---> 822c2962b845
+Step 13/29 : ARG MODFILE="go.mod"
+ ---> Using cache
+ ---> 9f4b922c4ebc
+Step 11/29 : ENV TESTPLAN_EXEC_PKG ${TESTPLAN_EXEC_PKG}
+ ---> Using cache
+ ---> d9a8644b7161
+Step 14/29 : ARG MODFILE_SUM="go.sum"
+ ---> Using cache
+ ---> 82bf012f275f
+Step 15/29 : COPY /plan/${PLAN_PATH}/${MODFILE} ${PLAN_DIR}/go.mod
+ ---> Using cache
+ ---> 56d5601ff39a
+Step 16/29 : COPY /plan/${PLAN_PATH}/${MODFILE_SUM} ${PLAN_DIR}/go.sum
+ ---> Using cache
+ ---> 9074a2c87512
+Step 17/29 : RUN echo "Using go proxy: ${GO_PROXY}"     && cd ${PLAN_DIR}     && go env -w GOPROXY="${GO_PROXY}"     && go mod download
+ ---> Using cache
+ ---> 31ec9edb8477
+Step 12/29 : ENV GOCACHE /go/cache
+ ---> Using cache
+ ---> 822c2962b845
+Step 13/29 : ARG MODFILE="go.mod"
+ ---> Using cache
+ ---> d9a8644b7161
+Step 14/29 : ARG MODFILE_SUM="go.sum"
+ ---> Using cache
+ ---> 82bf012f275f
+Step 15/29 : COPY /plan/${PLAN_PATH}/${MODFILE} ${PLAN_DIR}/go.mod
+ ---> Using cache
+ ---> 2ca5739e65ce
+Step 16/29 : COPY /plan/${PLAN_PATH}/${MODFILE_SUM} ${PLAN_DIR}/go.sum
+ ---> Using cache
+ ---> bed2211ded98
+Step 17/29 : RUN echo "Using go proxy: ${GO_PROXY}"     && cd ${PLAN_DIR}     && go env -w GOPROXY="${GO_PROXY}"     && go mod download
+ ---> Using cache
+ ---> 0877cdcd9178
+Step 18/29 : RUN cp ${PLAN_DIR}/go.mod ${PLAN_DIR}/go.sum /tmp/
+ ---> Using cache
+ ---> 4cbd07e2415f
+Step 19/29 : COPY . /
+ ---> Running in 85216d59af1a
+ ---> 82d67e1749fa
+Step 20/29 : RUN cp /tmp/go.mod /tmp/go.sum ${PLAN_DIR}/
+Using go proxy: http://testground-goproxy:8081
+ ---> Running in cc71f81b89b0
+ ---> 1219fc6ebeab
+Step 21/29 : RUN cd ${PLAN_DIR}     && go env -w GOPROXY="${GO_PROXY}"     && CGO_ENABLED=${CgoEnabled} GOOS=linux go build -o ${PLAN_DIR}/testplan.bin ${BUILD_TAGS} ${TESTPLAN_EXEC_PKG}
+ ---> Running in 9ac557f3474b
+ ---> 8a34094454ba
+Step 22/29 : RUN cd ${PLAN_DIR}   && go list -m all > /testground_dep_list
+ ---> Running in a63e6852ab8c
+ ---> 3b8a8831e017
+ ---> 3b8a8831e017
+Step 23/29 : FROM ${RUNTIME_IMAGE} AS runtime
+ ---> 7ddc309cad80
+Step 24/29 : ARG PLAN_PATH
+ ---> Using cache
+ ---> c02a867bbf43
+Step 25/29 : ENV PLAN_DIR /plan/${PLAN_PATH}
+ ---> Using cache
+ ---> 9e6ee596ff5e
+Step 26/29 : COPY --from=builder /testground_dep_list /
+ ---> Using cache
+ ---> 98221703e16e
+Step 27/29 : COPY --from=builder ${PLAN_DIR}/testplan.bin /testplan
+ ---> Using cache
+ ---> bfdad9f0a874
+Step 28/29 : EXPOSE 6060
+ ---> Using cache
+ ---> dd32e5ca4acf
+Step 29/29 : ENTRYPOINT [ "/testplan"]
+ ---> Using cache
+ ---> 5b325c1538f9
+ ---> 5b325c1538f9
+Successfully built 5b325c1538f9
+Successfully tagged b423ee226471:latest
+Dec  5 22:10:40.221458	[34mINFO[0m	build completed	{"default_tag": "b423ee226471:latest", "took": "2m9s"}
+Dec  5 22:10:40.341165	[34mINFO[0m	got docker image id	{"image_id": "5b325c1538f9"}
+Dec  5 22:10:40.687605	[34mINFO[0m	tagging image	{"image_id": "5b325c1538f9", "tag": "tg-plan-dht:5b325c1538f9"}
+Dec  5 22:10:40.693622	[34mINFO[0m	build succeeded	{"plan": "dht", "groups": ["balsam-dialable-provider"], "builder": "docker:go", "artifact": "5b325c1538f9"}
+ ---> a8ca87011efb
+Step 18/29 : RUN cp ${PLAN_DIR}/go.mod ${PLAN_DIR}/go.sum /tmp/
+ ---> Running in a8438b435bbd
+ ---> d9ee3b2e4049
+Step 19/29 : COPY . /
+ ---> 6f27d2909cd1
+Step 20/29 : RUN cp /tmp/go.mod /tmp/go.sum ${PLAN_DIR}/
+ ---> Running in 1e022766b33a
+ ---> 461705ab5ca2
+Step 21/29 : RUN cd ${PLAN_DIR}     && go env -w GOPROXY="${GO_PROXY}"     && CGO_ENABLED=${CgoEnabled} GOOS=linux go build -o ${PLAN_DIR}/testplan.bin ${BUILD_TAGS} ${TESTPLAN_EXEC_PKG}
+ ---> Running in c3d9f1f088e6
+ ---> 11f0f3acc454
+Step 22/29 : RUN cd ${PLAN_DIR}   && go list -m all > /testground_dep_list
+ ---> Running in 0ba482a2fbb5
+ ---> 05dccf8341a4
+ ---> 05dccf8341a4
+Step 23/29 : FROM ${RUNTIME_IMAGE} AS runtime
+ ---> 7ddc309cad80
+Step 24/29 : ARG PLAN_PATH
+ ---> Using cache
+ ---> c02a867bbf43
+Step 25/29 : ENV PLAN_DIR /plan/${PLAN_PATH}
+ ---> Using cache
+ ---> 9e6ee596ff5e
+Step 26/29 : COPY --from=builder /testground_dep_list /
+ ---> Using cache
+ ---> df19aca32b74
+Step 27/29 : COPY --from=builder ${PLAN_DIR}/testplan.bin /testplan
+ ---> Using cache
+ ---> 2cb73b8a5609
+Step 28/29 : EXPOSE 6060
+ ---> Using cache
+ ---> a6a8aab25b14
+Step 29/29 : ENTRYPOINT [ "/testplan"]
+ ---> Using cache
+ ---> 3aafee0eb29d
+ ---> 3aafee0eb29d
+Successfully built 3aafee0eb29d
+Successfully tagged d17583ef9558:latest
+Dec  5 22:11:51.923129	[34mINFO[0m	build completed	{"default_tag": "d17583ef9558:latest", "took": "3m20s"}
+Dec  5 22:11:51.957903	[34mINFO[0m	got docker image id	{"image_id": "3aafee0eb29d"}
+Dec  5 22:11:52.042410	[34mINFO[0m	tagging image	{"image_id": "3aafee0eb29d", "tag": "tg-plan-dht:3aafee0eb29d"}
+Dec  5 22:11:52.050029	[34mINFO[0m	build succeeded	{"plan": "dht", "groups": ["cypress-provider"], "builder": "docker:go", "artifact": "3aafee0eb29d"}
+Dec  5 22:11:52.050604	[34mINFO[0m	performing healthcheck on runner
+Dec  5 22:11:52.137774	[34mINFO[0m	[1;32mhealthcheck: ok[0m
+Dec  5 22:11:52.137942	[34mINFO[0m	starting run	{"run_id": "ce76nnnrirfmm1bnto2g", "plan": "dht", "case": "find-providers", "runner": "local:docker", "instances": 50}
+Dec  5 22:11:52.252592	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-0"}
+Dec  5 22:11:52.349561	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-1"}
+Dec  5 22:11:52.392171	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-2"}
+Dec  5 22:11:52.431577	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-3"}
+Dec  5 22:11:52.475860	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-4"}
+Dec  5 22:11:52.537047	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-5"}
+Dec  5 22:11:52.578745	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-6"}
+Dec  5 22:11:52.623856	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-7"}
+Dec  5 22:11:52.661730	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-8"}
+Dec  5 22:11:52.698264	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-9"}
+Dec  5 22:11:52.746244	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-10"}
+Dec  5 22:11:52.788905	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-11"}
+Dec  5 22:11:52.829277	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-12"}
+Dec  5 22:11:52.873512	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-13"}
+Dec  5 22:11:52.916367	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-14"}
+Dec  5 22:11:52.964168	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-15"}
+Dec  5 22:11:53.004831	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-16"}
+Dec  5 22:11:53.045824	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-17"}
+Dec  5 22:11:53.090929	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-18"}
+Dec  5 22:11:53.131987	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-19"}
+Dec  5 22:11:53.182828	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-20"}
+Dec  5 22:11:53.220481	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-21"}
+Dec  5 22:11:53.279116	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-22"}
+Dec  5 22:11:53.322923	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-23"}
+Dec  5 22:11:53.367714	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-24"}
+Dec  5 22:11:53.412459	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-25"}
+Dec  5 22:11:53.474324	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-26"}
+Dec  5 22:11:53.514857	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-27"}
+Dec  5 22:11:53.572411	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-28"}
+Dec  5 22:11:53.644246	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-29"}
+Dec  5 22:11:53.690678	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-30"}
+Dec  5 22:11:53.741040	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-31"}
+Dec  5 22:11:53.780853	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-32"}
+Dec  5 22:11:53.820538	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-33"}
+Dec  5 22:11:53.858385	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-34"}
+Dec  5 22:11:53.895533	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-35"}
+Dec  5 22:11:53.947378	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-36"}
+Dec  5 22:11:53.990892	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-37"}
+Dec  5 22:11:54.035949	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-38"}
+Dec  5 22:11:54.087044	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-39"}
+Dec  5 22:11:54.129561	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-40"}
+Dec  5 22:11:54.167584	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-41"}
+Dec  5 22:11:54.205557	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-42"}
+Dec  5 22:11:54.259211	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-43"}
+Dec  5 22:11:54.300681	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-44"}
+Dec  5 22:11:54.353411	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-45"}
+Dec  5 22:11:54.399775	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-46"}
+Dec  5 22:11:54.447827	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-47"}
+Dec  5 22:11:54.485921	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-48"}
+Dec  5 22:11:54.538010	[34mINFO[0m	creating container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "name": "tg-dht-find-providers-ce76nnnrirfmm1bnto2g-cypress-provider-49"}
+Dec  5 22:11:54.585930	[34mINFO[0m	starting containers	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "count": 50}
+Dec  5 22:11:54.586009	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c82cf3b013c8fcb53bb77cb21f19eac45b587ce5ca6f795c6e40a5533a11475d", "group": "cypress-provider", "group_index": 5}
+Dec  5 22:11:54.586046	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "5baaed07555f8d707bbca66dff19b1bdbc537003550d66e7ae9b5f1def08f7bb", "group": "cypress-provider", "group_index": 8}
+Dec  5 22:11:54.586021	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "348fbabae87feef2699de765a357d3fbe5b9096ef44872c06e8538183b92268b", "group": "cypress-provider", "group_index": 2}
+Dec  5 22:11:54.586153	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "08e5bdca70627061a94bd2a056fea45bfe96184640eafa2bbf60e05ac5f434d3", "group": "cypress-provider", "group_index": 10}
+Dec  5 22:11:54.586044	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "78f3a51e2085dadbea7807ab673f7e2d1bdc6384566e984eebf6a963c9c875a4", "group": "cypress-provider", "group_index": 0}
+Dec  5 22:11:54.586083	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "4dd3129fc3aa3bf7f02dda0d71ceaefcc19ab9cc7353b11c597f92169c9ec900", "group": "cypress-provider", "group_index": 6}
+Dec  5 22:11:54.586257	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "9e2975c7bf0a1de2cddeb76a956afabe54d167d6786d798e43fd39132f069af9", "group": "cypress-provider", "group_index": 19}
+Dec  5 22:11:54.586168	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "b93ea353702c2acd73e46b45a4577553bb9ca14bfa4f4c45f5235052a38ee7f7", "group": "cypress-provider", "group_index": 9}
+Dec  5 22:11:54.586350	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "ae82db5fe24f0b00503b9eddf748e10683c8ccf205af5ac0d615acf684333a2d", "group": "cypress-provider", "group_index": 12}
+Dec  5 22:11:54.586146	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "1e37ecef6d07792f066c86a883635d9d30e1c78ec9e60e8f5c8c1e66c3106dd6", "group": "cypress-provider", "group_index": 3}
+Dec  5 22:11:54.586357	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c25ca651eb80fd09c39fd99d44011b11cc894aa3f2ef4f38b628f6909f9138f6", "group": "cypress-provider", "group_index": 13}
+Dec  5 22:11:54.586365	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "4a558c980522b6ee55f1009cd88f48e083d7bea86d24e8c1646792ff62e00d5c", "group": "cypress-provider", "group_index": 16}
+Dec  5 22:11:54.586146	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "207b1ce0b4016b89065895a0c4f797118808c863f6677042fcb848003edce070", "group": "cypress-provider", "group_index": 7}
+Dec  5 22:11:54.586111	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "8560f324736a842bc830d681fa5cc0caf019829db68056f3b17cd794e80c6440", "group": "cypress-provider", "group_index": 4}
+Dec  5 22:11:54.586531	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c054dddb8ff7a062806b51bd3fb1a274efe082422d33b501c2f9793c6b7e90dc", "group": "cypress-provider", "group_index": 11}
+Dec  5 22:11:54.586537	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "208defd38d4a7ab82fa91649ab24676881055bb38b0929ec2f3f797832b6dcc1", "group": "cypress-provider", "group_index": 1}
+Dec  5 22:11:55.220913	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "abd6a9e69e67825fdaa58c8b092333186298e941553f9ddd70c5e0542d5749f9", "group": "cypress-provider", "group_index": 17}
+Dec  5 22:11:55.221315	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "5baaed07555f8d707bbca66dff19b1bdbc537003550d66e7ae9b5f1def08f7bb", "group": "cypress-provider", "group_index": 8}
+Dec  5 22:11:55.390720	[34mINFO[0m	0.8034s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:55.374419	[34mINFO[0m	additional hosts	{"hosts": ""}
+Dec  5 22:11:55.397408	[34mINFO[0m	0.8105s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:55.381679	[34mINFO[0m	resolved route to host	{"host": "testground-redis", "ip": "192.18.0.3"}
+Dec  5 22:11:55.398600	[34mINFO[0m	0.8117s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:55.383249	[34mINFO[0m	resolved route to host	{"host": "testground-sync-service", "ip": "192.18.0.2"}
+Dec  5 22:11:55.399538	[34mINFO[0m	0.8126s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:55.384424	[34mINFO[0m	resolved route to host	{"host": "testground-influxdb", "ip": "192.18.0.6"}
+Dec  5 22:11:55.411334	[34mINFO[0m	0.8049s [30;47m   MESSAGE[0m [31m<< sidecar      >>[0m InfluxDB unavailable; no metrics will be dispatched: no InfluxDB URL in $INFLUXDB_URL env var
+Dec  5 22:11:55.455900	[34mINFO[0m	0.8689s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:55.440861	[34mINFO[0m	successfully resolved route to host	{"container_id": "5baaed07555f8d707bbca66dff19b1bdbc537003550d66e7ae9b5f1def08f7bb"}
+Dec  5 22:11:55.455955	[34mINFO[0m	0.8538s [30;47m   MESSAGE[0m [32m<< cypress-provider[008] (5baaed) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:11:55.461231	[34mINFO[0m	0.8576s [30;106m     START[0m [32m<< cypress-provider[008] (5baaed) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:11:55.473584	[34mINFO[0m	0.8866s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:55.448582	[34mINFO[0m	external routing disabled
+Dec  5 22:11:55.473680	[34mINFO[0m	0.8868s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:55.448679	[34mINFO[0m	waiting for all networks to be ready	{"sidecar": true, "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:11:55.507964	[34mINFO[0m	0.9027s [30;47m   MESSAGE[0m [32m<< cypress-provider[008] (5baaed) >>[0m waiting for network to initialize
+Dec  5 22:11:56.020478	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "207b1ce0b4016b89065895a0c4f797118808c863f6677042fcb848003edce070", "group": "cypress-provider", "group_index": 7}
+Dec  5 22:11:56.020470	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "401eb22d024ad48fea9803c4cf0b7d46be969d5e00e77ac1960345f6a16eea5d", "group": "cypress-provider", "group_index": 18}
+Dec  5 22:11:56.054280	[34mINFO[0m	1.4350s [30;47m   MESSAGE[0m [31m<< sidecar      >>[0m InfluxDB unavailable; no metrics will be dispatched: no InfluxDB URL in $INFLUXDB_URL env var
+Dec  5 22:11:56.059177	[34mINFO[0m	1.4469s [30;47m   MESSAGE[0m [33m<< cypress-provider[007] (207b1c) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:11:56.059335	[34mINFO[0m	1.4487s [30;106m     START[0m [33m<< cypress-provider[007] (207b1c) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:11:56.060556	[34mINFO[0m	1.4736s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:56.043414	[34mINFO[0m	successfully resolved route to host	{"container_id": "207b1ce0b4016b89065895a0c4f797118808c863f6677042fcb848003edce070"}
+Dec  5 22:11:56.060966	[34mINFO[0m	1.4740s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:56.045822	[34mINFO[0m	external routing disabled
+Dec  5 22:11:56.061266	[34mINFO[0m	1.4743s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:56.046280	[34mINFO[0m	waiting for all networks to be ready	{"sidecar": true, "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:11:56.081888	[34mINFO[0m	1.4687s [30;47m   MESSAGE[0m [33m<< cypress-provider[007] (207b1c) >>[0m waiting for network to initialize
+Dec  5 22:11:56.102232	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "f21480d6c69c739b60a944db4053be8204937e580ab5c199ccbd1a04818dd759", "group": "cypress-provider", "group_index": 14}
+Dec  5 22:11:56.102245	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "ae82db5fe24f0b00503b9eddf748e10683c8ccf205af5ac0d615acf684333a2d", "group": "cypress-provider", "group_index": 12}
+Dec  5 22:11:56.121029	[34mINFO[0m	1.5187s [30;47m   MESSAGE[0m [31m<< sidecar      >>[0m InfluxDB unavailable; no metrics will be dispatched: no InfluxDB URL in $INFLUXDB_URL env var
+Dec  5 22:11:56.126164	[34mINFO[0m	1.5204s [30;47m   MESSAGE[0m [34m<< cypress-provider[012] (ae82db) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:11:56.128112	[34mINFO[0m	1.5412s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:56.112930	[34mINFO[0m	successfully resolved route to host	{"container_id": "ae82db5fe24f0b00503b9eddf748e10683c8ccf205af5ac0d615acf684333a2d"}
+Dec  5 22:11:56.129063	[34mINFO[0m	1.5268s [30;106m     START[0m [34m<< cypress-provider[012] (ae82db) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:11:56.130981	[34mINFO[0m	1.5441s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:56.115927	[34mINFO[0m	external routing disabled
+Dec  5 22:11:56.131287	[34mINFO[0m	1.5444s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:56.116293	[34mINFO[0m	waiting for all networks to be ready	{"sidecar": true, "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:11:56.144834	[34mINFO[0m	1.5414s [30;47m   MESSAGE[0m [34m<< cypress-provider[012] (ae82db) >>[0m waiting for network to initialize
+Dec  5 22:11:56.600202	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c8c7a8fcceb4a389b6c37c28614cc5a4d2b0f6149486db8924d6977902a3e878", "group": "cypress-provider", "group_index": 15}
+Dec  5 22:11:56.600480	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "78f3a51e2085dadbea7807ab673f7e2d1bdc6384566e984eebf6a963c9c875a4", "group": "cypress-provider", "group_index": 0}
+Dec  5 22:11:56.663343	[34mINFO[0m	2.0591s [30;47m   MESSAGE[0m [31m<< sidecar      >>[0m InfluxDB unavailable; no metrics will be dispatched: no InfluxDB URL in $INFLUXDB_URL env var
+Dec  5 22:11:56.721907	[34mINFO[0m	2.1144s [30;47m   MESSAGE[0m [35m<< cypress-provider[000] (78f3a5) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:11:56.744486	[34mINFO[0m	2.1374s [30;106m     START[0m [35m<< cypress-provider[000] (78f3a5) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:11:56.870645	[34mINFO[0m	2.2668s [30;47m   MESSAGE[0m [35m<< cypress-provider[000] (78f3a5) >>[0m waiting for network to initialize
+Dec  5 22:11:56.907515	[34mINFO[0m	2.3206s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:56.880068	[34mINFO[0m	successfully resolved route to host	{"container_id": "78f3a51e2085dadbea7807ab673f7e2d1bdc6384566e984eebf6a963c9c875a4"}
+Dec  5 22:11:56.948489	[34mINFO[0m	2.3615s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:56.930627	[34mINFO[0m	external routing disabled
+Dec  5 22:11:56.948591	[34mINFO[0m	2.3617s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:56.931221	[34mINFO[0m	waiting for all networks to be ready	{"sidecar": true, "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:11:57.650697	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "5a3768cb4dc126ac8d2592f740cdd94229a22b308e168116deaf0e6b5e47806b", "group": "cypress-provider", "group_index": 23}
+Dec  5 22:11:57.652523	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "4dd3129fc3aa3bf7f02dda0d71ceaefcc19ab9cc7353b11c597f92169c9ec900", "group": "cypress-provider", "group_index": 6}
+Dec  5 22:11:57.797288	[34mINFO[0m	3.1839s [30;47m   MESSAGE[0m [31m<< sidecar      >>[0m InfluxDB unavailable; no metrics will be dispatched: no InfluxDB URL in $INFLUXDB_URL env var
+Dec  5 22:11:57.890806	[34mINFO[0m	3.3038s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:57.862824	[34mINFO[0m	successfully resolved route to host	{"container_id": "4dd3129fc3aa3bf7f02dda0d71ceaefcc19ab9cc7353b11c597f92169c9ec900"}
+Dec  5 22:11:57.958345	[34mINFO[0m	3.3714s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:57.927340	[34mINFO[0m	external routing disabled
+Dec  5 22:11:57.958514	[34mINFO[0m	3.3716s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:57.927455	[34mINFO[0m	waiting for all networks to be ready	{"sidecar": true, "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:11:58.144935	[34mINFO[0m	3.4052s [30;47m   MESSAGE[0m [36m<< cypress-provider[006] (4dd312) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:11:58.148945	[34mINFO[0m	3.4395s [30;106m     START[0m [36m<< cypress-provider[006] (4dd312) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:11:58.149606	[34mINFO[0m	3.4948s [30;47m   MESSAGE[0m [36m<< cypress-provider[006] (4dd312) >>[0m waiting for network to initialize
+Dec  5 22:11:59.510840	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c054dddb8ff7a062806b51bd3fb1a274efe082422d33b501c2f9793c6b7e90dc", "group": "cypress-provider", "group_index": 11}
+Dec  5 22:11:59.510785	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "6e1ca9935f0d04458ae8cde6392f5ce7fe9bb63625430818f28b10ee5430e283", "group": "cypress-provider", "group_index": 20}
+Dec  5 22:11:59.524638	[34mINFO[0m	4.9111s [30;47m   MESSAGE[0m [31m<< sidecar      >>[0m InfluxDB unavailable; no metrics will be dispatched: no InfluxDB URL in $INFLUXDB_URL env var
+Dec  5 22:11:59.749129	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "08e5bdca70627061a94bd2a056fea45bfe96184640eafa2bbf60e05ac5f434d3", "group": "cypress-provider", "group_index": 10}
+Dec  5 22:11:59.749139	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "61c489e2ee4a18411bfe8c37bc38ea8b2c4005a76ae8595221f91a255d1e0230", "group": "cypress-provider", "group_index": 21}
+Dec  5 22:11:59.762913	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "7d7ab06e05902af65569764edbfd4ef964d15ea4405910b2e390aeb0c748251b", "group": "cypress-provider", "group_index": 22}
+Dec  5 22:11:59.762982	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "348fbabae87feef2699de765a357d3fbe5b9096ef44872c06e8538183b92268b", "group": "cypress-provider", "group_index": 2}
+Dec  5 22:11:59.789646	[34mINFO[0m	5.0889s [30;47m   MESSAGE[0m [31m<< sidecar      >>[0m InfluxDB unavailable; no metrics will be dispatched: no InfluxDB URL in $INFLUXDB_URL env var
+Dec  5 22:11:59.873454	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "827dc0981c554bd9056f89d2b4cf1cb975f5cbc21ba93e9030d42e418a82426a", "group": "cypress-provider", "group_index": 25}
+Dec  5 22:11:59.873653	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "b93ea353702c2acd73e46b45a4577553bb9ca14bfa4f4c45f5235052a38ee7f7", "group": "cypress-provider", "group_index": 9}
+Dec  5 22:11:59.878766	[34mINFO[0m	5.1845s [30;47m   MESSAGE[0m [31m<< sidecar      >>[0m InfluxDB unavailable; no metrics will be dispatched: no InfluxDB URL in $INFLUXDB_URL env var
+Dec  5 22:11:59.879518	[34mINFO[0m	5.2926s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:59.786193	[34mINFO[0m	successfully resolved route to host	{"container_id": "b93ea353702c2acd73e46b45a4577553bb9ca14bfa4f4c45f5235052a38ee7f7"}
+Dec  5 22:11:59.880321	[34mINFO[0m	5.1980s [30;47m   MESSAGE[0m [37m<< cypress-provider[011] (c054dd) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:11:59.880348	[34mINFO[0m	5.2933s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:59.796292	[34mINFO[0m	external routing disabled
+Dec  5 22:11:59.881763	[34mINFO[0m	5.2948s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:59.796412	[34mINFO[0m	waiting for all networks to be ready	{"sidecar": true, "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:11:59.881822	[34mINFO[0m	5.2647s [30;47m   MESSAGE[0m [31m<< sidecar      >>[0m InfluxDB unavailable; no metrics will be dispatched: no InfluxDB URL in $INFLUXDB_URL env var
+Dec  5 22:11:59.881934	[34mINFO[0m	5.2005s [30;106m     START[0m [37m<< cypress-provider[011] (c054dd) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:11:59.903084	[34mINFO[0m	5.3161s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:59.873899	[34mINFO[0m	successfully resolved route to host	{"container_id": "c054dddb8ff7a062806b51bd3fb1a274efe082422d33b501c2f9793c6b7e90dc"}
+Dec  5 22:11:59.904002	[34mINFO[0m	5.3171s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:59.878910	[34mINFO[0m	external routing disabled
+Dec  5 22:11:59.904054	[34mINFO[0m	5.3171s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:11:59.879045	[34mINFO[0m	waiting for all networks to be ready	{"sidecar": true, "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:11:59.995329	[34mINFO[0m	5.3818s [30;47m   MESSAGE[0m [37m<< cypress-provider[011] (c054dd) >>[0m waiting for network to initialize
+Dec  5 22:12:00.061085	[34mINFO[0m	5.4344s [30;47m   MESSAGE[0m [92m<< cypress-provider[009] (b93ea3) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:00.076872	[34mINFO[0m	5.4630s [30;106m     START[0m [92m<< cypress-provider[009] (b93ea3) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:00.412325	[34mINFO[0m	5.8253s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:00.383220	[34mINFO[0m	successfully resolved route to host	{"container_id": "08e5bdca70627061a94bd2a056fea45bfe96184640eafa2bbf60e05ac5f434d3"}
+Dec  5 22:12:00.474244	[34mINFO[0m	5.8341s [30;47m   MESSAGE[0m [92m<< cypress-provider[009] (b93ea3) >>[0m waiting for network to initialize
+Dec  5 22:12:00.519654	[34mINFO[0m	5.9327s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:00.386935	[34mINFO[0m	successfully resolved route to host	{"container_id": "348fbabae87feef2699de765a357d3fbe5b9096ef44872c06e8538183b92268b"}
+Dec  5 22:12:00.567721	[34mINFO[0m	5.9797s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:00.548943	[34mINFO[0m	external routing disabled
+Dec  5 22:12:00.570592	[34mINFO[0m	5.9836s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:00.549036	[34mINFO[0m	waiting for all networks to be ready	{"sidecar": true, "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:12:00.629494	[34mINFO[0m	6.0425s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:00.591884	[34mINFO[0m	external routing disabled
+Dec  5 22:12:00.629613	[34mINFO[0m	6.0427s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:00.592026	[34mINFO[0m	waiting for all networks to be ready	{"sidecar": true, "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:12:00.838460	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "2e81fa2ff1a04638f52cd5f021547fd1c9ff4b099b522edfcaad51b6f12885a0", "group": "cypress-provider", "group_index": 24}
+Dec  5 22:12:00.838447	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "9e2975c7bf0a1de2cddeb76a956afabe54d167d6786d798e43fd39132f069af9", "group": "cypress-provider", "group_index": 19}
+Dec  5 22:12:00.969706	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "1e37ecef6d07792f066c86a883635d9d30e1c78ec9e60e8f5c8c1e66c3106dd6", "group": "cypress-provider", "group_index": 3}
+Dec  5 22:12:00.969664	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "5d94bac7f69c4e456881da6e60de54e00680ca6ebf1672af6daa446f3cb1d349", "group": "cypress-provider", "group_index": 26}
+Dec  5 22:12:01.009336	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "5fbea76a266be5cd2016122ef94ce8e19c616173694d075452dae2f2d7112849", "group": "cypress-provider", "group_index": 27}
+Dec  5 22:12:01.009672	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c25ca651eb80fd09c39fd99d44011b11cc894aa3f2ef4f38b628f6909f9138f6", "group": "cypress-provider", "group_index": 13}
+Dec  5 22:12:01.409597	[34mINFO[0m	6.7066s [30;47m   MESSAGE[0m [31m<< sidecar      >>[0m InfluxDB unavailable; no metrics will be dispatched: no InfluxDB URL in $INFLUXDB_URL env var
+Dec  5 22:12:01.409787	[34mINFO[0m	6.7073s [30;47m   MESSAGE[0m [31m<< sidecar      >>[0m InfluxDB unavailable; no metrics will be dispatched: no InfluxDB URL in $INFLUXDB_URL env var
+Dec  5 22:12:01.456806	[34mINFO[0m	6.7081s [30;47m   MESSAGE[0m [31m<< sidecar      >>[0m InfluxDB unavailable; no metrics will be dispatched: no InfluxDB URL in $INFLUXDB_URL env var
+Dec  5 22:12:01.535930	[34mINFO[0m	6.9488s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:01.504681	[34mINFO[0m	successfully resolved route to host	{"container_id": "1e37ecef6d07792f066c86a883635d9d30e1c78ec9e60e8f5c8c1e66c3106dd6"}
+Dec  5 22:12:01.586023	[34mINFO[0m	6.9991s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:01.561161	[34mINFO[0m	external routing disabled
+Dec  5 22:12:01.587404	[34mINFO[0m	7.0004s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:01.561328	[34mINFO[0m	waiting for all networks to be ready	{"sidecar": true, "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:12:01.681134	[34mINFO[0m	7.0942s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:01.642899	[34mINFO[0m	successfully resolved route to host	{"container_id": "9e2975c7bf0a1de2cddeb76a956afabe54d167d6786d798e43fd39132f069af9"}
+Dec  5 22:12:01.684420	[34mINFO[0m	7.0975s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:01.657555	[34mINFO[0m	successfully resolved route to host	{"container_id": "c25ca651eb80fd09c39fd99d44011b11cc894aa3f2ef4f38b628f6909f9138f6"}
+Dec  5 22:12:01.684471	[34mINFO[0m	7.0975s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:01.667055	[34mINFO[0m	external routing disabled
+Dec  5 22:12:01.689054	[34mINFO[0m	7.1018s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:01.667335	[34mINFO[0m	waiting for all networks to be ready	{"sidecar": true, "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:12:01.719629	[34mINFO[0m	7.1327s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:01.689397	[34mINFO[0m	external routing disabled
+Dec  5 22:12:01.883753	[34mINFO[0m	7.2968s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:01.862194	[34mINFO[0m	waiting for all networks to be ready	{"sidecar": true, "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:12:02.791223	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "557a1d38a77974e268c312d4d27271d9826222170ae979d53a40614c0d196a62", "group": "cypress-provider", "group_index": 28}
+Dec  5 22:12:02.791367	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "4a558c980522b6ee55f1009cd88f48e083d7bea86d24e8c1646792ff62e00d5c", "group": "cypress-provider", "group_index": 16}
+Dec  5 22:12:03.070639	[34mINFO[0m	8.4509s [30;47m   MESSAGE[0m [31m<< sidecar      >>[0m InfluxDB unavailable; no metrics will be dispatched: no InfluxDB URL in $INFLUXDB_URL env var
+Dec  5 22:12:03.329641	[34mINFO[0m	8.7427s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:03.304581	[34mINFO[0m	successfully resolved route to host	{"container_id": "4a558c980522b6ee55f1009cd88f48e083d7bea86d24e8c1646792ff62e00d5c"}
+Dec  5 22:12:03.379793	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "f9e5472a10daf480f9d45eb0e1d0bbb3a7f7152fd4a667965d297a46186f56f8", "group": "cypress-provider", "group_index": 33}
+Dec  5 22:12:03.379808	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c82cf3b013c8fcb53bb77cb21f19eac45b587ce5ca6f795c6e40a5533a11475d", "group": "cypress-provider", "group_index": 5}
+Dec  5 22:12:03.401841	[34mINFO[0m	8.7919s [30;47m   MESSAGE[0m [31m<< sidecar      >>[0m InfluxDB unavailable; no metrics will be dispatched: no InfluxDB URL in $INFLUXDB_URL env var
+Dec  5 22:12:03.411214	[34mINFO[0m	8.8243s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:03.391113	[34mINFO[0m	external routing disabled
+Dec  5 22:12:03.411330	[34mINFO[0m	8.8244s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:03.391321	[34mINFO[0m	waiting for all networks to be ready	{"sidecar": true, "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:12:03.501959	[34mINFO[0m	8.9150s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:03.476814	[34mINFO[0m	successfully resolved route to host	{"container_id": "c82cf3b013c8fcb53bb77cb21f19eac45b587ce5ca6f795c6e40a5533a11475d"}
+Dec  5 22:12:03.626031	[34mINFO[0m	9.0391s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:03.605457	[34mINFO[0m	external routing disabled
+Dec  5 22:12:03.711511	[34mINFO[0m	9.1245s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:03.682725	[34mINFO[0m	waiting for all networks to be ready	{"sidecar": true, "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:12:03.829748	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "b367b2f99ebbd2cf0a1e4da892af65b38caa7f06ae2e841b729f83d16a8be2b6", "group": "cypress-provider", "group_index": 30}
+Dec  5 22:12:03.831167	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "8560f324736a842bc830d681fa5cc0caf019829db68056f3b17cd794e80c6440", "group": "cypress-provider", "group_index": 4}
+Dec  5 22:12:03.828739	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "f7917d5693bd63f921bec1e092bc5e5e03b8a3b73c197d7510ca35b06e27cbc9", "group": "cypress-provider", "group_index": 29}
+Dec  5 22:12:03.831352	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "78111420bcb3ede06cd0b4c7b0ec0e3f02c857c729a21703919ae2c9124dbfe3", "group": "cypress-provider", "group_index": 31}
+Dec  5 22:12:03.841250	[34mINFO[0m	9.1945s [30;47m   MESSAGE[0m [91m<< cypress-provider[002] (348fba) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:03.861032	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "abd6a9e69e67825fdaa58c8b092333186298e941553f9ddd70c5e0542d5749f9", "group": "cypress-provider", "group_index": 17}
+Dec  5 22:12:03.866466	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "f21480d6c69c739b60a944db4053be8204937e580ab5c199ccbd1a04818dd759", "group": "cypress-provider", "group_index": 14}
+Dec  5 22:12:03.972396	[34mINFO[0m	9.3622s [30;106m     START[0m [91m<< cypress-provider[002] (348fba) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:04.413897	[34mINFO[0m	9.8020s [30;47m   MESSAGE[0m [91m<< cypress-provider[002] (348fba) >>[0m waiting for network to initialize
+Dec  5 22:12:04.413887	[34mINFO[0m	9.8046s [30;47m   MESSAGE[0m [31m<< sidecar      >>[0m InfluxDB unavailable; no metrics will be dispatched: no InfluxDB URL in $INFLUXDB_URL env var
+Dec  5 22:12:04.414043	[34mINFO[0m	9.8054s [30;47m   MESSAGE[0m [31m<< sidecar      >>[0m InfluxDB unavailable; no metrics will be dispatched: no InfluxDB URL in $INFLUXDB_URL env var
+Dec  5 22:12:04.452942	[34mINFO[0m	9.8385s [30;47m   MESSAGE[0m [31m<< sidecar      >>[0m InfluxDB unavailable; no metrics will be dispatched: no InfluxDB URL in $INFLUXDB_URL env var
+Dec  5 22:12:04.478481	[34mINFO[0m	9.8915s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:04.441366	[34mINFO[0m	successfully resolved route to host	{"container_id": "8560f324736a842bc830d681fa5cc0caf019829db68056f3b17cd794e80c6440"}
+Dec  5 22:12:04.478562	[34mINFO[0m	9.8916s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:04.453635	[34mINFO[0m	successfully resolved route to host	{"container_id": "abd6a9e69e67825fdaa58c8b092333186298e941553f9ddd70c5e0542d5749f9"}
+Dec  5 22:12:04.532053	[34mINFO[0m	9.9451s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:04.489432	[34mINFO[0m	external routing disabled
+Dec  5 22:12:04.532117	[34mINFO[0m	9.9452s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:04.489964	[34mINFO[0m	waiting for all networks to be ready	{"sidecar": true, "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:12:04.537269	[34mINFO[0m	9.9503s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:04.512826	[34mINFO[0m	external routing disabled
+Dec  5 22:12:05.359304	[34mINFO[0m	10.7722s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:05.318432	[34mINFO[0m	waiting for all networks to be ready	{"sidecar": true, "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:12:05.403867	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "9cd8dfc697f1962849de659f1bba2a9788365eebead3e88cce27397c80c24752", "group": "cypress-provider", "group_index": 32}
+Dec  5 22:12:05.403904	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "401eb22d024ad48fea9803c4cf0b7d46be969d5e00e77ac1960345f6a16eea5d", "group": "cypress-provider", "group_index": 18}
+Dec  5 22:12:05.507631	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c8c7a8fcceb4a389b6c37c28614cc5a4d2b0f6149486db8924d6977902a3e878", "group": "cypress-provider", "group_index": 15}
+Dec  5 22:12:05.507609	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "626993b8a957d5e75a56103cc506776a8797eda5b6db45752c0ebd9547c7d318", "group": "cypress-provider", "group_index": 35}
+Dec  5 22:12:05.679972	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "75e6190ebc6d60de800baa6dd47cc3661334cea087367b17acad056739b1e31d", "group": "cypress-provider", "group_index": 34}
+Dec  5 22:12:05.680158	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "5a3768cb4dc126ac8d2592f740cdd94229a22b308e168116deaf0e6b5e47806b", "group": "cypress-provider", "group_index": 23}
+Dec  5 22:12:05.750904	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "4313c2723233662cbd88c66ba1cdd809b758d2a5e59c3d26c42a42f3cd9377ab", "group": "cypress-provider", "group_index": 40}
+Dec  5 22:12:05.751172	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "208defd38d4a7ab82fa91649ab24676881055bb38b0929ec2f3f797832b6dcc1", "group": "cypress-provider", "group_index": 1}
+Dec  5 22:12:05.886771	[34mINFO[0m	11.2635s [30;47m   MESSAGE[0m [32m<< cypress-provider[017] (abd6a9) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:05.887179	[34mINFO[0m	11.2696s [30;106m     START[0m [32m<< cypress-provider[017] (abd6a9) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:05.952532	[34mINFO[0m	11.3197s [30;47m   MESSAGE[0m [33m<< cypress-provider[014] (f21480) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:05.957569	[34mINFO[0m	11.3520s [30;106m     START[0m [33m<< cypress-provider[014] (f21480) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:06.928699	[34mINFO[0m	12.2939s [30;47m   MESSAGE[0m [93m<< cypress-provider[019] (9e2975) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:06.962276	[34mINFO[0m	12.3483s [30;106m     START[0m [93m<< cypress-provider[019] (9e2975) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:07.151119	[34mINFO[0m	12.5464s [30;47m   MESSAGE[0m [93m<< cypress-provider[019] (9e2975) >>[0m waiting for network to initialize
+Dec  5 22:12:07.491535	[34mINFO[0m	12.8760s [30;47m   MESSAGE[0m [33m<< cypress-provider[014] (f21480) >>[0m waiting for network to initialize
+Dec  5 22:12:07.702571	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "e6887a0013b1df3634c0343d95454271c17cc479a09419425be1275705c29c28", "group": "cypress-provider", "group_index": 38}
+Dec  5 22:12:07.702914	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "827dc0981c554bd9056f89d2b4cf1cb975f5cbc21ba93e9030d42e418a82426a", "group": "cypress-provider", "group_index": 25}
+Dec  5 22:12:07.941991	[34mINFO[0m	12.9587s [30;47m   MESSAGE[0m [94m<< cypress-provider[003] (1e37ec) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:08.180797	[34mINFO[0m	13.2160s [30;47m   MESSAGE[0m [96m<< cypress-provider[016] (4a558c) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:09.865127	[34mINFO[0m	15.2781s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:09.685445	[34mINFO[0m	successfully resolved route to host	{"container_id": "f21480d6c69c739b60a944db4053be8204937e580ab5c199ccbd1a04818dd759"}
+Dec  5 22:12:09.865233	[34mINFO[0m	15.2782s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:09.788644	[34mINFO[0m	external routing disabled
+Dec  5 22:12:09.865261	[34mINFO[0m	15.2783s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:09.788757	[34mINFO[0m	waiting for all networks to be ready	{"sidecar": true, "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:12:09.865334	[34mINFO[0m	15.1884s [30;47m   MESSAGE[0m [31m<< sidecar      >>[0m InfluxDB unavailable; no metrics will be dispatched: no InfluxDB URL in $INFLUXDB_URL env var
+Dec  5 22:12:09.865359	[34mINFO[0m	15.2784s [37;45m     OTHER[0m [31m<< sidecar      >>[0m Dec  5 22:12:09.832458	[31mFATAL[0m	error while reading socket	{"error": "failed to read JSON message: failed to get reader: WebSocket closed: failed to acquire lock: context deadline exceeded"}
+Dec  5 22:12:10.081507	[34mINFO[0m	13.2316s [30;106m     START[0m [96m<< cypress-provider[016] (4a558c) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:10.146942	[34mINFO[0m	15.5421s [30;47m   MESSAGE[0m [95m<< cypress-provider[013] (c25ca6) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:10.179248	[34mINFO[0m	15.5728s [30;47m   MESSAGE[0m [32m<< cypress-provider[017] (abd6a9) >>[0m waiting for network to initialize
+Dec  5 22:12:10.213785	[34mINFO[0m	15.5882s [30;106m     START[0m [95m<< cypress-provider[013] (c25ca6) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:10.268750	[34mINFO[0m	15.6621s [30;47m   MESSAGE[0m [90m<< cypress-provider[010] (08e5bd) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:10.273942	[34mINFO[0m	15.6689s [30;47m   MESSAGE[0m [96m<< cypress-provider[016] (4a558c) >>[0m waiting for network to initialize
+Dec  5 22:12:10.304002	[34mINFO[0m	15.6957s [30;47m   MESSAGE[0m [95m<< cypress-provider[013] (c25ca6) >>[0m waiting for network to initialize
+Dec  5 22:12:10.309851	[34mINFO[0m	15.6889s [30;106m     START[0m [90m<< cypress-provider[010] (08e5bd) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:10.309855	[34mINFO[0m	12.9660s [30;106m     START[0m [94m<< cypress-provider[003] (1e37ec) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:10.338869	[34mINFO[0m	15.7355s [30;47m   MESSAGE[0m [97m<< cypress-provider[005] (c82cf3) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:10.364517	[34mINFO[0m	15.7490s [30;106m     START[0m [97m<< cypress-provider[005] (c82cf3) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:10.427572	[34mINFO[0m	15.8241s [30;47m   MESSAGE[0m [31m<< cypress-provider[004] (8560f3) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:10.430326	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "efcc389555d925eba0bdcde7cdd06fe7e8e03ae549b0bfe3de79514e96373821", "group": "cypress-provider", "group_index": 39}
+Dec  5 22:12:10.430341	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "5d94bac7f69c4e456881da6e60de54e00680ca6ebf1672af6daa446f3cb1d349", "group": "cypress-provider", "group_index": 26}
+Dec  5 22:12:10.442211	[34mINFO[0m	15.8320s [30;106m     START[0m [31m<< cypress-provider[004] (8560f3) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:10.516628	[34mINFO[0m	15.9042s [30;47m   MESSAGE[0m [90m<< cypress-provider[010] (08e5bd) >>[0m waiting for network to initialize
+Dec  5 22:12:10.529185	[34mINFO[0m	15.8910s [30;47m   MESSAGE[0m [37m<< cypress-provider[001] (208def) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:10.620770	[34mINFO[0m	15.9171s [30;106m     START[0m [37m<< cypress-provider[001] (208def) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:10.640712	[34mINFO[0m	16.0357s [30;47m   MESSAGE[0m [97m<< cypress-provider[005] (c82cf3) >>[0m waiting for network to initialize
+Dec  5 22:12:10.641900	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "cb3ca2275badfad5f7e0ec6b33b5b34adfb0b46d8264bdac90d5768847c6bd4d", "group": "cypress-provider", "group_index": 36}
+Dec  5 22:12:10.642048	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "7d7ab06e05902af65569764edbfd4ef964d15ea4405910b2e390aeb0c748251b", "group": "cypress-provider", "group_index": 22}
+Dec  5 22:12:10.649905	[34mINFO[0m	16.0105s [30;47m   MESSAGE[0m [92m<< cypress-provider[022] (7d7ab0) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:10.650020	[34mINFO[0m	16.0158s [30;106m     START[0m [92m<< cypress-provider[022] (7d7ab0) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:10.724567	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "34f81cdb93db4c3a467a213c1ce8dff6e5064a98aa26183ef15f8f89213ee52d", "group": "cypress-provider", "group_index": 43}
+Dec  5 22:12:10.724713	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "6e1ca9935f0d04458ae8cde6392f5ce7fe9bb63625430818f28b10ee5430e283", "group": "cypress-provider", "group_index": 20}
+Dec  5 22:12:10.748268	[34mINFO[0m	16.1398s [30;47m   MESSAGE[0m [92m<< cypress-provider[022] (7d7ab0) >>[0m waiting for network to initialize
+Dec  5 22:12:10.787432	[34mINFO[0m	16.1825s [30;47m   MESSAGE[0m [90m<< cypress-provider[025] (827dc0) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:10.793580	[34mINFO[0m	16.1865s [30;106m     START[0m [90m<< cypress-provider[025] (827dc0) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:10.799525	[34mINFO[0m	16.1936s [30;47m   MESSAGE[0m [31m<< cypress-provider[004] (8560f3) >>[0m waiting for network to initialize
+Dec  5 22:12:10.821772	[34mINFO[0m	16.2129s [30;47m   MESSAGE[0m [35m<< cypress-provider[015] (c8c7a8) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:10.846085	[34mINFO[0m	16.2397s [30;106m     START[0m [35m<< cypress-provider[015] (c8c7a8) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:10.846344	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "3df24c4f703f409b567f89a4a1d32cfac1501df9307a064b37c7c8ead0bd8eef", "group": "cypress-provider", "group_index": 41}
+Dec  5 22:12:10.846462	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "5fbea76a266be5cd2016122ef94ce8e19c616173694d075452dae2f2d7112849", "group": "cypress-provider", "group_index": 27}
+Dec  5 22:12:10.882645	[34mINFO[0m	16.2777s [30;47m   MESSAGE[0m [34m<< cypress-provider[018] (401eb2) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:10.888853	[34mINFO[0m	16.2831s [30;106m     START[0m [34m<< cypress-provider[018] (401eb2) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:10.904465	[34mINFO[0m	16.2994s [30;47m   MESSAGE[0m [93m<< cypress-provider[020] (6e1ca9) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:10.943910	[34mINFO[0m	16.3227s [30;106m     START[0m [93m<< cypress-provider[020] (6e1ca9) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:10.980707	[34mINFO[0m	16.3786s [30;47m   MESSAGE[0m [90m<< cypress-provider[025] (827dc0) >>[0m waiting for network to initialize
+Dec  5 22:12:11.063039	[34mINFO[0m	16.4598s [30;47m   MESSAGE[0m [37m<< cypress-provider[001] (208def) >>[0m waiting for network to initialize
+Dec  5 22:12:11.080516	[34mINFO[0m	16.4706s [30;47m   MESSAGE[0m [93m<< cypress-provider[020] (6e1ca9) >>[0m waiting for network to initialize
+Dec  5 22:12:11.105657	[34mINFO[0m	16.5030s [30;47m   MESSAGE[0m [34m<< cypress-provider[018] (401eb2) >>[0m waiting for network to initialize
+Dec  5 22:12:11.169690	[34mINFO[0m	16.5602s [30;47m   MESSAGE[0m [91m<< cypress-provider[026] (5d94ba) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:11.169879	[34mINFO[0m	16.5625s [30;106m     START[0m [91m<< cypress-provider[026] (5d94ba) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:11.185105	[34mINFO[0m	16.5801s [30;47m   MESSAGE[0m [35m<< cypress-provider[015] (c8c7a8) >>[0m waiting for network to initialize
+Dec  5 22:12:11.185316	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "80067dcdb9c228e8cc6f9fd640c41201a6e89d6dd44a9f1269a000888756d8c4", "group": "cypress-provider", "group_index": 42}
+Dec  5 22:12:11.185849	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "61c489e2ee4a18411bfe8c37bc38ea8b2c4005a76ae8595221f91a255d1e0230", "group": "cypress-provider", "group_index": 21}
+Dec  5 22:12:11.210304	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c93e5c6d264ebb1fcbc8a969ea401ce4607ac3e5652a55a8957f8ab464414273", "group": "cypress-provider", "group_index": 37}
+Dec  5 22:12:11.210330	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "557a1d38a77974e268c312d4d27271d9826222170ae979d53a40614c0d196a62", "group": "cypress-provider", "group_index": 28}
+Dec  5 22:12:11.224061	[34mINFO[0m	16.6154s [30;47m   MESSAGE[0m [94m<< cypress-provider[027] (5fbea7) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:11.228831	[34mINFO[0m	16.6266s [30;106m     START[0m [94m<< cypress-provider[027] (5fbea7) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:11.368841	[34mINFO[0m	16.7328s [30;47m   MESSAGE[0m [95m<< cypress-provider[021] (61c489) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:11.369768	[34mINFO[0m	16.7488s [30;47m   MESSAGE[0m [94m<< cypress-provider[027] (5fbea7) >>[0m waiting for network to initialize
+Dec  5 22:12:11.372847	[34mINFO[0m	16.7098s [30;47m   MESSAGE[0m [91m<< cypress-provider[026] (5d94ba) >>[0m waiting for network to initialize
+Dec  5 22:12:11.381178	[34mINFO[0m	16.7766s [30;47m   MESSAGE[0m [96m<< cypress-provider[028] (557a1d) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:11.395415	[34mINFO[0m	16.7897s [30;106m     START[0m [96m<< cypress-provider[028] (557a1d) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:11.400906	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "78111420bcb3ede06cd0b4c7b0ec0e3f02c857c729a21703919ae2c9124dbfe3", "group": "cypress-provider", "group_index": 31}
+Dec  5 22:12:11.401635	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "db52361ae4ef9b4609ece1e0023b61a6df3e89d07b5c4dce01610b8215707494", "group": "cypress-provider", "group_index": 44}
+Dec  5 22:12:11.429087	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "fa97d53c46050e240dd2d9568f9ce619ac70946569457fe44c10e0011e909bb6", "group": "cypress-provider", "group_index": 46}
+Dec  5 22:12:11.429099	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "b367b2f99ebbd2cf0a1e4da892af65b38caa7f06ae2e841b729f83d16a8be2b6", "group": "cypress-provider", "group_index": 30}
+Dec  5 22:12:11.448652	[34mINFO[0m	16.8377s [30;47m   MESSAGE[0m [96m<< cypress-provider[028] (557a1d) >>[0m waiting for network to initialize
+Dec  5 22:12:11.455647	[34mINFO[0m	16.8485s [30;106m     START[0m [95m<< cypress-provider[021] (61c489) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:11.596331	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "98ccf545528c263e3cf6a5c8f3a714a645e2a4f677f07fd01f5907cdd3435d4b", "group": "cypress-provider", "group_index": 45}
+Dec  5 22:12:11.596579	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "2e81fa2ff1a04638f52cd5f021547fd1c9ff4b099b522edfcaad51b6f12885a0", "group": "cypress-provider", "group_index": 24}
+Dec  5 22:12:11.670387	[34mINFO[0m	17.0674s [30;47m   MESSAGE[0m [97m<< cypress-provider[031] (781114) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:11.685686	[34mINFO[0m	17.0698s [30;106m     START[0m [97m<< cypress-provider[031] (781114) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:11.689932	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "e1c875f476febe11ebda6d31cff7f1dd15f2ba7594a83a08dcfa5ef88b945e88", "group": "cypress-provider", "group_index": 47}
+Dec  5 22:12:11.690126	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "f9e5472a10daf480f9d45eb0e1d0bbb3a7f7152fd4a667965d297a46186f56f8", "group": "cypress-provider", "group_index": 33}
+Dec  5 22:12:11.698028	[34mINFO[0m	17.0898s [30;47m   MESSAGE[0m [95m<< cypress-provider[021] (61c489) >>[0m waiting for network to initialize
+Dec  5 22:12:11.762629	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "18ed74221b6c455696740f801355033f60a06669bc182a20626c43bef21eaed1", "group": "cypress-provider", "group_index": 48}
+Dec  5 22:12:11.762633	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "f7917d5693bd63f921bec1e092bc5e5e03b8a3b73c197d7510ca35b06e27cbc9", "group": "cypress-provider", "group_index": 29}
+Dec  5 22:12:11.837057	[34mINFO[0m	17.2336s [30;47m   MESSAGE[0m [94m<< cypress-provider[003] (1e37ec) >>[0m waiting for network to initialize
+Dec  5 22:12:11.905825	[34mINFO[0m	17.3009s [30;47m   MESSAGE[0m [31m<< cypress-provider[030] (b367b2) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:11.920166	[34mINFO[0m	17.3064s [30;106m     START[0m [31m<< cypress-provider[030] (b367b2) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:11.993714	[34mINFO[0m	17.3913s [30;47m   MESSAGE[0m [32m<< cypress-provider[024] (2e81fa) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:12.000705	[34mINFO[0m	17.3928s [30;106m     START[0m [32m<< cypress-provider[024] (2e81fa) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:13.132439	[34mINFO[0m	18.4809s [30;47m   MESSAGE[0m [33m<< cypress-provider[007] (207b1c) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:14.129921	[34mINFO[0m	19.5250s [30;47m   MESSAGE[0m [36m<< cypress-provider[023] (5a3768) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:14.132627	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "9cd8dfc697f1962849de659f1bba2a9788365eebead3e88cce27397c80c24752", "group": "cypress-provider", "group_index": 32}
+Dec  5 22:12:14.132626	[34mINFO[0m	starting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "2c6ba79d47d6e3b64fed69c878063b4aa72f2a13050ddc35d3f523209d78d742", "group": "cypress-provider", "group_index": 49}
+Dec  5 22:12:14.161457	[34mINFO[0m	19.5569s [30;47m   MESSAGE[0m [31m<< cypress-provider[030] (b367b2) >>[0m waiting for network to initialize
+Dec  5 22:12:14.172342	[34mINFO[0m	19.5640s [30;106m     START[0m [36m<< cypress-provider[023] (5a3768) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:15.818908	[34mINFO[0m	21.2024s [30;47m   MESSAGE[0m [32m<< cypress-provider[024] (2e81fa) >>[0m waiting for network to initialize
+Dec  5 22:12:17.385933	[34mINFO[0m	22.8419s [30;47m   MESSAGE[0m [95m<< cypress-provider[021] (61c489) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:17.590264	[34mINFO[0m	23.0406s [30;47m   MESSAGE[0m [97m<< cypress-provider[031] (781114) >>[0m waiting for network to initialize
+Dec  5 22:12:17.792688	[34mINFO[0m	23.2505s [30;47m   MESSAGE[0m [31m<< cypress-provider[030] (b367b2) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:18.446868	[34mINFO[0m	23.8870s [30;47m   MESSAGE[0m [36m<< cypress-provider[023] (5a3768) >>[0m waiting for network to initialize
+Dec  5 22:12:18.885980	[34mINFO[0m	24.2838s [30;47m   MESSAGE[0m [35m<< cypress-provider[032] (9cd8df) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:18.905188	[34mINFO[0m	24.3386s [30;106m     START[0m [35m<< cypress-provider[032] (9cd8df) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:19.169676	[34mINFO[0m	24.5826s [37;101mINCOMPLETE[0m [31m<< sidecar      >>[0m 
+Dec  5 22:12:19.340518	[34mINFO[0m	24.7989s [30;47m   MESSAGE[0m [34m<< cypress-provider[029] (f7917d) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:19.348255	[34mINFO[0m	24.8077s [30;106m     START[0m [34m<< cypress-provider[029] (f7917d) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:20.481424	[34mINFO[0m	25.9094s [30;47m   MESSAGE[0m [91m<< cypress-provider[002] (348fba) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:21.067920	[34mINFO[0m	26.4612s [30;47m   MESSAGE[0m [92m<< cypress-provider[009] (b93ea3) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:21.260676	[34mINFO[0m	26.5441s [30;47m   MESSAGE[0m [91m<< cypress-provider[026] (5d94ba) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:21.379943	[34mINFO[0m	26.8314s [30;47m   MESSAGE[0m [90m<< cypress-provider[010] (08e5bd) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:21.480162	[34mINFO[0m	26.9383s [30;47m   MESSAGE[0m [37m<< cypress-provider[001] (208def) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:21.497253	[34mINFO[0m	26.9295s [30;47m   MESSAGE[0m [32m<< cypress-provider[008] (5baaed) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:21.606939	[34mINFO[0m	27.0640s [30;47m   MESSAGE[0m [97m<< cypress-provider[005] (c82cf3) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:21.744447	[34mINFO[0m	27.2030s [30;47m   MESSAGE[0m [35m<< cypress-provider[032] (9cd8df) >>[0m waiting for network to initialize
+Dec  5 22:12:21.867936	[34mINFO[0m	27.2959s [30;47m   MESSAGE[0m [34m<< cypress-provider[029] (f7917d) >>[0m waiting for network to initialize
+Dec  5 22:12:22.325604	[34mINFO[0m	27.5298s [30;47m   MESSAGE[0m [33m<< cypress-provider[014] (f21480) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:22.379678	[34mINFO[0m	27.8310s [30;47m   MESSAGE[0m [94m<< cypress-provider[003] (1e37ec) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:22.822872	[34mINFO[0m	28.2709s [30;47m   MESSAGE[0m [96m<< cypress-provider[016] (4a558c) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:22.857561	[34mINFO[0m	28.3042s [30;47m   MESSAGE[0m [34m<< cypress-provider[018] (401eb2) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:22.860911	[34mINFO[0m	28.3111s [30;47m   MESSAGE[0m [92m<< cypress-provider[022] (7d7ab0) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:22.996468	[34mINFO[0m	28.4507s [30;47m   MESSAGE[0m [93m<< cypress-provider[020] (6e1ca9) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:23.038582	[34mINFO[0m	28.2290s [30;47m   MESSAGE[0m [37m<< cypress-provider[011] (c054dd) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:23.058305	[34mINFO[0m	28.5073s [30;47m   MESSAGE[0m [32m<< cypress-provider[024] (2e81fa) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:23.408895	[34mINFO[0m	28.8227s [30;47m   MESSAGE[0m [93m<< cypress-provider[019] (9e2975) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:23.498357	[34mINFO[0m	28.7700s [30;47m   MESSAGE[0m [34m<< cypress-provider[012] (ae82db) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:23.562862	[34mINFO[0m	29.0021s [30;47m   MESSAGE[0m [95m<< cypress-provider[013] (c25ca6) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:23.643544	[34mINFO[0m	29.0720s [30;47m   MESSAGE[0m [31m<< cypress-provider[030] (b367b2) >>[0m failed to send batch to InfluxDB; attempt 1; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:23.645623	[34mINFO[0m	29.0999s [30;47m   MESSAGE[0m [96m<< cypress-provider[028] (557a1d) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:23.654863	[34mINFO[0m	29.1078s [30;47m   MESSAGE[0m [94m<< cypress-provider[027] (5fbea7) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:23.678491	[34mINFO[0m	29.1159s [30;47m   MESSAGE[0m [35m<< cypress-provider[000] (78f3a5) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:23.879611	[34mINFO[0m	29.3177s [30;47m   MESSAGE[0m [95m<< cypress-provider[021] (61c489) >>[0m failed to send batch to InfluxDB; attempt 1; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:24.551311	[34mINFO[0m	29.9825s [30;47m   MESSAGE[0m [36m<< cypress-provider[006] (4dd312) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:24.658893	[34mINFO[0m	30.1159s [30;47m   MESSAGE[0m [97m<< cypress-provider[031] (781114) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:24.822961	[34mINFO[0m	30.2787s [30;47m   MESSAGE[0m [35m<< cypress-provider[032] (9cd8df) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:25.196310	[34mINFO[0m	30.6521s [30;47m   MESSAGE[0m [36m<< cypress-provider[023] (5a3768) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:25.239464	[34mINFO[0m	30.6858s [30;47m   MESSAGE[0m [35m<< cypress-provider[015] (c8c7a8) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:25.371855	[34mINFO[0m	30.8307s [30;47m   MESSAGE[0m [33m<< cypress-provider[033] (f9e547) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:25.374750	[34mINFO[0m	30.8341s [30;106m     START[0m [33m<< cypress-provider[033] (f9e547) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:25.390319	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "cb3ca2275badfad5f7e0ec6b33b5b34adfb0b46d8264bdac90d5768847c6bd4d", "group": "cypress-provider", "group_index": 36}
+Dec  5 22:12:25.601407	[34mINFO[0m	31.0612s [30;47m   MESSAGE[0m [36m<< cypress-provider[036] (cb3ca2) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:25.604934	[34mINFO[0m	31.0629s [30;106m     START[0m [36m<< cypress-provider[036] (cb3ca2) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:25.654318	[34mINFO[0m	31.0938s [30;47m   MESSAGE[0m [90m<< cypress-provider[025] (827dc0) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:25.733264	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "626993b8a957d5e75a56103cc506776a8797eda5b6db45752c0ebd9547c7d318", "group": "cypress-provider", "group_index": 35}
+Dec  5 22:12:25.955716	[34mINFO[0m	31.4156s [30;47m   MESSAGE[0m [37m<< cypress-provider[035] (626993) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:25.965797	[34mINFO[0m	31.4184s [30;106m     START[0m [37m<< cypress-provider[035] (626993) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:26.063782	[34mINFO[0m	31.5220s [30;47m   MESSAGE[0m [91m<< cypress-provider[002] (348fba) >>[0m failed to send batch to InfluxDB; attempt 1; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:26.263614	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "efcc389555d925eba0bdcde7cdd06fe7e8e03ae549b0bfe3de79514e96373821", "group": "cypress-provider", "group_index": 39}
+Dec  5 22:12:26.296444	[34mINFO[0m	31.7449s [30;47m   MESSAGE[0m [32m<< cypress-provider[017] (abd6a9) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:26.366451	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "34f81cdb93db4c3a467a213c1ce8dff6e5064a98aa26183ef15f8f89213ee52d", "group": "cypress-provider", "group_index": 43}
+Dec  5 22:12:26.450329	[34mINFO[0m	31.8739s [30;47m   MESSAGE[0m [31m<< cypress-provider[004] (8560f3) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:26.473509	[34mINFO[0m	31.9254s [30;47m   MESSAGE[0m [90m<< cypress-provider[039] (efcc38) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:26.483831	[34mINFO[0m	31.9354s [30;106m     START[0m [90m<< cypress-provider[039] (efcc38) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:26.517551	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "75e6190ebc6d60de800baa6dd47cc3661334cea087367b17acad056739b1e31d", "group": "cypress-provider", "group_index": 34}
+Dec  5 22:12:26.550137	[34mINFO[0m	32.0069s [30;47m   MESSAGE[0m [91m<< cypress-provider[043] (34f81c) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:26.558208	[34mINFO[0m	32.0168s [30;106m     START[0m [91m<< cypress-provider[043] (34f81c) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:26.602408	[34mINFO[0m	32.0610s [30;47m   MESSAGE[0m [92m<< cypress-provider[009] (b93ea3) >>[0m failed to send batch to InfluxDB; attempt 1; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:12:26.741709	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "e6887a0013b1df3634c0343d95454271c17cc479a09419425be1275705c29c28", "group": "cypress-provider", "group_index": 38}
+Dec  5 22:12:26.751608	[34mINFO[0m	32.2104s [30;47m   MESSAGE[0m [90m<< cypress-provider[039] (efcc38) >>[0m waiting for network to initialize
+Dec  5 22:12:27.004505	[34mINFO[0m	32.4650s [30;47m   MESSAGE[0m [91m<< cypress-provider[043] (34f81c) >>[0m waiting for network to initialize
+Dec  5 22:12:27.013203	[34mINFO[0m	32.4717s [30;47m   MESSAGE[0m [37m<< cypress-provider[035] (626993) >>[0m waiting for network to initialize
+Dec  5 22:12:27.082856	[34mINFO[0m	32.5429s [30;47m   MESSAGE[0m [36m<< cypress-provider[036] (cb3ca2) >>[0m waiting for network to initialize
+Dec  5 22:12:27.102930	[34mINFO[0m	32.5597s [30;47m   MESSAGE[0m [33m<< cypress-provider[033] (f9e547) >>[0m waiting for network to initialize
+Dec  5 22:12:27.119300	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "db52361ae4ef9b4609ece1e0023b61a6df3e89d07b5c4dce01610b8215707494", "group": "cypress-provider", "group_index": 44}
+Dec  5 22:12:27.187278	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "fa97d53c46050e240dd2d9568f9ce619ac70946569457fe44c10e0011e909bb6", "group": "cypress-provider", "group_index": 46}
+Dec  5 22:12:27.240287	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "4313c2723233662cbd88c66ba1cdd809b758d2a5e59c3d26c42a42f3cd9377ab", "group": "cypress-provider", "group_index": 40}
+Dec  5 22:12:27.250921	[34mINFO[0m	32.7098s [30;47m   MESSAGE[0m [95m<< cypress-provider[046] (fa97d5) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:27.253433	[34mINFO[0m	32.7118s [30;106m     START[0m [95m<< cypress-provider[046] (fa97d5) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:27.272122	[34mINFO[0m	32.7277s [30;47m   MESSAGE[0m [94m<< cypress-provider[044] (db5236) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:27.272369	[34mINFO[0m	32.7298s [30;106m     START[0m [94m<< cypress-provider[044] (db5236) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:27.281220	[34mINFO[0m	32.7411s [30;47m   MESSAGE[0m [92m<< cypress-provider[034] (75e619) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:27.286276	[34mINFO[0m	32.7429s [30;47m   MESSAGE[0m [94m<< cypress-provider[044] (db5236) >>[0m waiting for network to initialize
+Dec  5 22:12:27.300945	[34mINFO[0m	32.7551s [30;106m     START[0m [92m<< cypress-provider[034] (75e619) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:27.338070	[34mINFO[0m	32.7830s [30;47m   MESSAGE[0m [95m<< cypress-provider[046] (fa97d5) >>[0m waiting for network to initialize
+Dec  5 22:12:27.437632	[34mINFO[0m	32.8940s [30;47m   MESSAGE[0m [93m<< cypress-provider[038] (e6887a) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:27.443581	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "98ccf545528c263e3cf6a5c8f3a714a645e2a4f677f07fd01f5907cdd3435d4b", "group": "cypress-provider", "group_index": 45}
+Dec  5 22:12:27.485115	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c93e5c6d264ebb1fcbc8a969ea401ce4607ac3e5652a55a8957f8ab464414273", "group": "cypress-provider", "group_index": 37}
+Dec  5 22:12:27.487182	[34mINFO[0m	32.9438s [30;47m   MESSAGE[0m [92m<< cypress-provider[034] (75e619) >>[0m waiting for network to initialize
+Dec  5 22:12:27.507969	[34mINFO[0m	32.9513s [30;106m     START[0m [93m<< cypress-provider[038] (e6887a) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:27.518070	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "18ed74221b6c455696740f801355033f60a06669bc182a20626c43bef21eaed1", "group": "cypress-provider", "group_index": 48}
+Dec  5 22:12:27.541529	[34mINFO[0m	32.9997s [30;47m   MESSAGE[0m [96m<< cypress-provider[040] (4313c2) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:27.565027	[34mINFO[0m	33.0231s [30;106m     START[0m [96m<< cypress-provider[040] (4313c2) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:27.570511	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "2c6ba79d47d6e3b64fed69c878063b4aa72f2a13050ddc35d3f523209d78d742", "group": "cypress-provider", "group_index": 49}
+Dec  5 22:12:27.587886	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "80067dcdb9c228e8cc6f9fd640c41201a6e89d6dd44a9f1269a000888756d8c4", "group": "cypress-provider", "group_index": 42}
+Dec  5 22:12:27.618085	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "3df24c4f703f409b567f89a4a1d32cfac1501df9307a064b37c7c8ead0bd8eef", "group": "cypress-provider", "group_index": 41}
+Dec  5 22:12:27.618430	[34mINFO[0m	Containers started, waiting for containers and outcome signals	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:12:27.618471	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "78f3a51e2085dadbea7807ab673f7e2d1bdc6384566e984eebf6a963c9c875a4", "group": "cypress-provider", "group_index": 0}
+Dec  5 22:12:27.618572	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "208defd38d4a7ab82fa91649ab24676881055bb38b0929ec2f3f797832b6dcc1", "group": "cypress-provider", "group_index": 1}
+Dec  5 22:12:27.618643	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "348fbabae87feef2699de765a357d3fbe5b9096ef44872c06e8538183b92268b", "group": "cypress-provider", "group_index": 2}
+Dec  5 22:12:27.620007	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "7d7ab06e05902af65569764edbfd4ef964d15ea4405910b2e390aeb0c748251b", "group": "cypress-provider", "group_index": 22}
+Dec  5 22:12:27.619967	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "9e2975c7bf0a1de2cddeb76a956afabe54d167d6786d798e43fd39132f069af9", "group": "cypress-provider", "group_index": 19}
+Dec  5 22:12:27.620084	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "6e1ca9935f0d04458ae8cde6392f5ce7fe9bb63625430818f28b10ee5430e283", "group": "cypress-provider", "group_index": 20}
+Dec  5 22:12:27.620208	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "827dc0981c554bd9056f89d2b4cf1cb975f5cbc21ba93e9030d42e418a82426a", "group": "cypress-provider", "group_index": 25}
+Dec  5 22:12:27.620217	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "5fbea76a266be5cd2016122ef94ce8e19c616173694d075452dae2f2d7112849", "group": "cypress-provider", "group_index": 27}
+Dec  5 22:12:27.620224	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "557a1d38a77974e268c312d4d27271d9826222170ae979d53a40614c0d196a62", "group": "cypress-provider", "group_index": 28}
+Dec  5 22:12:27.620204	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "2e81fa2ff1a04638f52cd5f021547fd1c9ff4b099b522edfcaad51b6f12885a0", "group": "cypress-provider", "group_index": 24}
+Dec  5 22:12:27.620240	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "61c489e2ee4a18411bfe8c37bc38ea8b2c4005a76ae8595221f91a255d1e0230", "group": "cypress-provider", "group_index": 21}
+Dec  5 22:12:27.620188	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "e6887a0013b1df3634c0343d95454271c17cc479a09419425be1275705c29c28", "group": "cypress-provider", "group_index": 38}
+Dec  5 22:12:27.620369	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c93e5c6d264ebb1fcbc8a969ea401ce4607ac3e5652a55a8957f8ab464414273", "group": "cypress-provider", "group_index": 37}
+Dec  5 22:12:27.619168	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "8560f324736a842bc830d681fa5cc0caf019829db68056f3b17cd794e80c6440", "group": "cypress-provider", "group_index": 4}
+Dec  5 22:12:27.619123	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "5d94bac7f69c4e456881da6e60de54e00680ca6ebf1672af6daa446f3cb1d349", "group": "cypress-provider", "group_index": 26}
+Dec  5 22:12:27.620481	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "2c6ba79d47d6e3b64fed69c878063b4aa72f2a13050ddc35d3f523209d78d742", "group": "cypress-provider", "group_index": 49}
+Dec  5 22:12:27.619206	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c82cf3b013c8fcb53bb77cb21f19eac45b587ce5ca6f795c6e40a5533a11475d", "group": "cypress-provider", "group_index": 5}
+Dec  5 22:12:27.620301	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "db52361ae4ef9b4609ece1e0023b61a6df3e89d07b5c4dce01610b8215707494", "group": "cypress-provider", "group_index": 44}
+Dec  5 22:12:27.620382	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "9cd8dfc697f1962849de659f1bba2a9788365eebead3e88cce27397c80c24752", "group": "cypress-provider", "group_index": 32}
+Dec  5 22:12:27.620767	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "18ed74221b6c455696740f801355033f60a06669bc182a20626c43bef21eaed1", "group": "cypress-provider", "group_index": 48}
+Dec  5 22:12:27.619272	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "207b1ce0b4016b89065895a0c4f797118808c863f6677042fcb848003edce070", "group": "cypress-provider", "group_index": 7}
+Dec  5 22:12:27.620974	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "f9e5472a10daf480f9d45eb0e1d0bbb3a7f7152fd4a667965d297a46186f56f8", "group": "cypress-provider", "group_index": 33}
+Dec  5 22:12:27.619292	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "5baaed07555f8d707bbca66dff19b1bdbc537003550d66e7ae9b5f1def08f7bb", "group": "cypress-provider", "group_index": 8}
+Dec  5 22:12:27.619309	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "b93ea353702c2acd73e46b45a4577553bb9ca14bfa4f4c45f5235052a38ee7f7", "group": "cypress-provider", "group_index": 9}
+Dec  5 22:12:27.619787	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "08e5bdca70627061a94bd2a056fea45bfe96184640eafa2bbf60e05ac5f434d3", "group": "cypress-provider", "group_index": 10}
+Dec  5 22:12:27.620323	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "f7917d5693bd63f921bec1e092bc5e5e03b8a3b73c197d7510ca35b06e27cbc9", "group": "cypress-provider", "group_index": 29}
+Dec  5 22:12:27.619804	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c054dddb8ff7a062806b51bd3fb1a274efe082422d33b501c2f9793c6b7e90dc", "group": "cypress-provider", "group_index": 11}
+Dec  5 22:12:27.621438	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "98ccf545528c263e3cf6a5c8f3a714a645e2a4f677f07fd01f5907cdd3435d4b", "group": "cypress-provider", "group_index": 45}
+Dec  5 22:12:27.619821	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "ae82db5fe24f0b00503b9eddf748e10683c8ccf205af5ac0d615acf684333a2d", "group": "cypress-provider", "group_index": 12}
+Dec  5 22:12:27.621500	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "fa97d53c46050e240dd2d9568f9ce619ac70946569457fe44c10e0011e909bb6", "group": "cypress-provider", "group_index": 46}
+Dec  5 22:12:27.621529	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "cb3ca2275badfad5f7e0ec6b33b5b34adfb0b46d8264bdac90d5768847c6bd4d", "group": "cypress-provider", "group_index": 36}
+Dec  5 22:12:27.619893	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "4a558c980522b6ee55f1009cd88f48e083d7bea86d24e8c1646792ff62e00d5c", "group": "cypress-provider", "group_index": 16}
+Dec  5 22:12:27.621552	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "75e6190ebc6d60de800baa6dd47cc3661334cea087367b17acad056739b1e31d", "group": "cypress-provider", "group_index": 34}
+Dec  5 22:12:27.619836	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c25ca651eb80fd09c39fd99d44011b11cc894aa3f2ef4f38b628f6909f9138f6", "group": "cypress-provider", "group_index": 13}
+Dec  5 22:12:27.619860	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "f21480d6c69c739b60a944db4053be8204937e580ab5c199ccbd1a04818dd759", "group": "cypress-provider", "group_index": 14}
+Dec  5 22:12:27.619915	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "abd6a9e69e67825fdaa58c8b092333186298e941553f9ddd70c5e0542d5749f9", "group": "cypress-provider", "group_index": 17}
+Dec  5 22:12:27.620274	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "3df24c4f703f409b567f89a4a1d32cfac1501df9307a064b37c7c8ead0bd8eef", "group": "cypress-provider", "group_index": 41}
+Dec  5 22:12:27.619877	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c8c7a8fcceb4a389b6c37c28614cc5a4d2b0f6149486db8924d6977902a3e878", "group": "cypress-provider", "group_index": 15}
+Dec  5 22:12:27.620290	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "34f81cdb93db4c3a467a213c1ce8dff6e5064a98aa26183ef15f8f89213ee52d", "group": "cypress-provider", "group_index": 43}
+Dec  5 22:12:27.620343	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "626993b8a957d5e75a56103cc506776a8797eda5b6db45752c0ebd9547c7d318", "group": "cypress-provider", "group_index": 35}
+Dec  5 22:12:27.619252	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "4dd3129fc3aa3bf7f02dda0d71ceaefcc19ab9cc7353b11c597f92169c9ec900", "group": "cypress-provider", "group_index": 6}
+Dec  5 22:12:27.619151	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "1e37ecef6d07792f066c86a883635d9d30e1c78ec9e60e8f5c8c1e66c3106dd6", "group": "cypress-provider", "group_index": 3}
+Dec  5 22:12:27.620389	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "78111420bcb3ede06cd0b4c7b0ec0e3f02c857c729a21703919ae2c9124dbfe3", "group": "cypress-provider", "group_index": 31}
+Dec  5 22:12:27.620279	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "80067dcdb9c228e8cc6f9fd640c41201a6e89d6dd44a9f1269a000888756d8c4", "group": "cypress-provider", "group_index": 42}
+Dec  5 22:12:27.620216	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "efcc389555d925eba0bdcde7cdd06fe7e8e03ae549b0bfe3de79514e96373821", "group": "cypress-provider", "group_index": 39}
+Dec  5 22:12:27.620225	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "4313c2723233662cbd88c66ba1cdd809b758d2a5e59c3d26c42a42f3cd9377ab", "group": "cypress-provider", "group_index": 40}
+Dec  5 22:12:27.619944	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "401eb22d024ad48fea9803c4cf0b7d46be969d5e00e77ac1960345f6a16eea5d", "group": "cypress-provider", "group_index": 18}
+Dec  5 22:12:27.621622	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "e1c875f476febe11ebda6d31cff7f1dd15f2ba7594a83a08dcfa5ef88b945e88", "group": "cypress-provider", "group_index": 47}
+Dec  5 22:12:27.620334	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "b367b2f99ebbd2cf0a1e4da892af65b38caa7f06ae2e841b729f83d16a8be2b6", "group": "cypress-provider", "group_index": 30}
+Dec  5 22:12:27.620309	[34mINFO[0m	waiting for container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "5a3768cb4dc126ac8d2592f740cdd94229a22b308e168116deaf0e6b5e47806b", "group": "cypress-provider", "group_index": 23}
+Dec  5 22:12:27.626926	[34mINFO[0m	attaching container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "e1c875f476febe11ebda6d31cff7f1dd15f2ba7594a83a08dcfa5ef88b945e88", "group": "cypress-provider", "group_index": 47}
+Dec  5 22:12:27.642061	[34mINFO[0m	33.0941s [30;47m   MESSAGE[0m [32m<< cypress-provider[048] (18ed74) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:27.648026	[34mINFO[0m	33.1081s [30;106m     START[0m [32m<< cypress-provider[048] (18ed74) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:27.695866	[34mINFO[0m	33.1210s [30;47m   MESSAGE[0m [34m<< cypress-provider[042] (80067d) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:27.712554	[34mINFO[0m	33.1608s [30;106m     START[0m [34m<< cypress-provider[042] (80067d) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:27.772260	[34mINFO[0m	33.2321s [30;47m   MESSAGE[0m [35m<< cypress-provider[041] (3df24c) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:27.777235	[34mINFO[0m	33.2257s [30;47m   MESSAGE[0m [34m<< cypress-provider[042] (80067d) >>[0m waiting for network to initialize
+Dec  5 22:12:27.777356	[34mINFO[0m	33.2257s [30;47m   MESSAGE[0m [32m<< cypress-provider[048] (18ed74) >>[0m waiting for network to initialize
+Dec  5 22:12:27.777367	[34mINFO[0m	33.2351s [30;106m     START[0m [35m<< cypress-provider[041] (3df24c) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:27.778588	[34mINFO[0m	33.2394s [30;47m   MESSAGE[0m [97m<< cypress-provider[045] (98ccf5) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:27.788527	[34mINFO[0m	33.2467s [30;106m     START[0m [97m<< cypress-provider[045] (98ccf5) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:27.840303	[34mINFO[0m	33.2945s [30;47m   MESSAGE[0m [93m<< cypress-provider[038] (e6887a) >>[0m waiting for network to initialize
+Dec  5 22:12:27.860529	[34mINFO[0m	33.3211s [30;47m   MESSAGE[0m [33m<< cypress-provider[049] (2c6ba7) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:27.861923	[34mINFO[0m	33.3222s [30;106m     START[0m [33m<< cypress-provider[049] (2c6ba7) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:27.863937	[34mINFO[0m	33.3229s [30;47m   MESSAGE[0m [31m<< cypress-provider[037] (c93e5c) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:27.864098	[34mINFO[0m	33.3243s [30;106m     START[0m [31m<< cypress-provider[037] (c93e5c) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:27.874546	[34mINFO[0m	33.3350s [30;47m   MESSAGE[0m [96m<< cypress-provider[040] (4313c2) >>[0m waiting for network to initialize
+Dec  5 22:12:27.893062	[34mINFO[0m	33.3356s [30;47m   MESSAGE[0m [31m<< cypress-provider[037] (c93e5c) >>[0m waiting for network to initialize
+Dec  5 22:12:27.904545	[34mINFO[0m	33.3579s [30;47m   MESSAGE[0m [33m<< cypress-provider[049] (2c6ba7) >>[0m waiting for network to initialize
+Dec  5 22:12:27.907946	[34mINFO[0m	33.3691s [30;47m   MESSAGE[0m [35m<< cypress-provider[041] (3df24c) >>[0m waiting for network to initialize
+Dec  5 22:12:27.908303	[34mINFO[0m	33.3688s [30;47m   MESSAGE[0m [97m<< cypress-provider[045] (98ccf5) >>[0m waiting for network to initialize
+Dec  5 22:12:28.260397	[34mINFO[0m	33.3119s [30;47m   MESSAGE[0m [36m<< cypress-provider[047] (e1c875) >>[0m registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)
+Dec  5 22:12:28.290489	[34mINFO[0m	33.3141s [30;106m     START[0m [36m<< cypress-provider[047] (e1c875) >>[0m {"plan":"dht","case":"find-providers","run":"ce76nnnrirfmm1bnto2g","outputs_path":"/outputs","temp_path":"/temp","instances":50,"params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"group":"cypress-provider","group_instances":50,"network":"16.14.0.0/16","start_time":"0001-01-01T00:00:00Z"}
+Dec  5 22:12:28.354102	[34mINFO[0m	33.8118s [30;47m   MESSAGE[0m [36m<< cypress-provider[047] (e1c875) >>[0m waiting for network to initialize
+Dec  5 22:12:32.570048	[34mINFO[0m	38.0140s [30;47m   MESSAGE[0m [91m<< cypress-provider[043] (34f81c) >>[0m failed to send batch to InfluxDB; attempt 0; err: Post "http://testground-influxdb:8086/write?consistency=&db=testground&precision=ns&rp=": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Dec  5 22:18:30.630098	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.629519	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.629994	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.630661	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.629493	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.630673	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.630412	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.629979	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.629514	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.630438	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.630712	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.631079	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.631108	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.631123	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.631137	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.631139	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.631143	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.631148	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.631151	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.631142	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.633608	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.631154	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.633339	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.633359	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.633625	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.633648	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.633750	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.633757	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.633761	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.633766	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.634007	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.634013	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.634018	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.634023	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.634652	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.634663	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.634668	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.634672	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.635426	[34mINFO[0m	396.0419s [37;41m     ERROR[0m [93m<< cypress-provider[020] (6e1ca9) >>[0m context deadline exceeded
+Dec  5 22:18:30.635447	[34mINFO[0m	396.0467s [37;41m     ERROR[0m [97m<< cypress-provider[005] (c82cf3) >>[0m context deadline exceeded
+Dec  5 22:18:30.635469	[34mINFO[0m	396.0421s [37;41m     ERROR[0m [90m<< cypress-provider[039] (efcc38) >>[0m context deadline exceeded
+Dec  5 22:18:30.635471	[34mINFO[0m	396.0425s [37;41m     ERROR[0m [37m<< cypress-provider[035] (626993) >>[0m context deadline exceeded
+Dec  5 22:18:30.635517	[34mINFO[0m	396.0421s [37;41m     ERROR[0m [92m<< cypress-provider[022] (7d7ab0) >>[0m context deadline exceeded
+Dec  5 22:18:30.635539	[34mINFO[0m	396.0468s [37;41m     ERROR[0m [94m<< cypress-provider[027] (5fbea7) >>[0m context deadline exceeded
+Dec  5 22:18:30.630079	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.629301	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.629795	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.630657	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620010	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.630664	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620222	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.629721	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.621276	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.630185	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.630651	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620233	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.629799	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.635725	[34mINFO[0m	396.0469s [37;101mINCOMPLETE[0m [90m<< cypress-provider[039] (efcc38) >>[0m 
+Dec  5 22:18:30.635740	[34mINFO[0m	396.0470s [37;41m     ERROR[0m [90m<< cypress-provider[010] (08e5bd) >>[0m context deadline exceeded
+Dec  5 22:18:30.637493	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.637499	[34mINFO[0m	396.0470s [37;41m     ERROR[0m [34m<< cypress-provider[012] (ae82db) >>[0m context deadline exceeded
+Dec  5 22:18:30.637513	[34mINFO[0m	396.0487s [37;41m     ERROR[0m [33m<< cypress-provider[007] (207b1c) >>[0m context deadline exceeded
+Dec  5 22:18:30.635465	[34mINFO[0m	396.0422s [37;41m     ERROR[0m [31m<< cypress-provider[004] (8560f3) >>[0m context deadline exceeded
+Dec  5 22:18:30.637576	[34mINFO[0m	396.0488s [37;41m     ERROR[0m [32m<< cypress-provider[017] (abd6a9) >>[0m context deadline exceeded
+Dec  5 22:18:30.639928	[34mINFO[0m	396.0491s [37;41m     ERROR[0m [35m<< cypress-provider[041] (3df24c) >>[0m context deadline exceeded
+Dec  5 22:18:30.637615	[34mINFO[0m	396.0488s [37;101mINCOMPLETE[0m [31m<< cypress-provider[004] (8560f3) >>[0m 
+Dec  5 22:18:30.637625	[34mINFO[0m	396.0489s [37;101mINCOMPLETE[0m [32m<< cypress-provider[017] (abd6a9) >>[0m 
+Dec  5 22:18:30.637627	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.635481	[34mINFO[0m	396.0424s [37;41m     ERROR[0m [33m<< cypress-provider[049] (2c6ba7) >>[0m context deadline exceeded
+Dec  5 22:18:30.637869	[34mINFO[0m	396.0470s [37;41m     ERROR[0m [91m<< cypress-provider[043] (34f81c) >>[0m context deadline exceeded
+Dec  5 22:18:30.637970	[34mINFO[0m	396.0489s [37;41m     ERROR[0m [93m<< cypress-provider[038] (e6887a) >>[0m context deadline exceeded
+Dec  5 22:18:30.639877	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.639881	[34mINFO[0m	396.0492s [37;41m     ERROR[0m [31m<< cypress-provider[037] (c93e5c) >>[0m context deadline exceeded
+Dec  5 22:18:30.639912	[34mINFO[0m	396.0511s [37;41m     ERROR[0m [97m<< cypress-provider[045] (98ccf5) >>[0m context deadline exceeded
+Dec  5 22:18:30.639918	[34mINFO[0m	396.0491s [37;41m     ERROR[0m [92m<< cypress-provider[034] (75e619) >>[0m context deadline exceeded
+Dec  5 22:18:30.639915	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.639928	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.639934	[34mINFO[0m	the test run ended early	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.639934	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.629519	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.629794	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.639941	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.639942	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.639949	[34mINFO[0m	396.0512s [37;41m     ERROR[0m [34m<< cypress-provider[042] (80067d) >>[0m context deadline exceeded
+Dec  5 22:18:30.639953	[34mINFO[0m	396.0512s [37;41m     ERROR[0m [96m<< cypress-provider[040] (4313c2) >>[0m context deadline exceeded
+Dec  5 22:18:30.639956	[34mINFO[0m	396.0512s [37;101mINCOMPLETE[0m [33m<< cypress-provider[049] (2c6ba7) >>[0m 
+Dec  5 22:18:30.639964	[34mINFO[0m	396.0512s [37;101mINCOMPLETE[0m [35m<< cypress-provider[041] (3df24c) >>[0m 
+Dec  5 22:18:30.639968	[34mINFO[0m	396.0512s [37;41m     ERROR[0m [95m<< cypress-provider[046] (fa97d5) >>[0m context deadline exceeded
+Dec  5 22:18:30.639969	[34mINFO[0m	396.0512s [37;101mINCOMPLETE[0m [34m<< cypress-provider[042] (80067d) >>[0m 
+Dec  5 22:18:30.639968	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.639974	[34mINFO[0m	396.0512s [37;41m     ERROR[0m [37m<< cypress-provider[011] (c054dd) >>[0m context deadline exceeded
+Dec  5 22:18:30.639976	[34mINFO[0m	396.0512s [37;101mINCOMPLETE[0m [93m<< cypress-provider[038] (e6887a) >>[0m 
+Dec  5 22:18:30.639976	[31mERROR[0m	Ignored key without a value.	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ignored": "context deadline exceeded"}
+Dec  5 22:18:30.639979	[34mINFO[0m	396.0512s [37;101mINCOMPLETE[0m [31m<< cypress-provider[037] (c93e5c) >>[0m 
+Dec  5 22:18:30.639985	[34mINFO[0m	396.0512s [37;101mINCOMPLETE[0m [32m<< cypress-provider[048] (18ed74) >>[0m 
+Dec  5 22:18:30.639987	[34mINFO[0m	396.0468s [37;41m     ERROR[0m [91m<< cypress-provider[026] (5d94ba) >>[0m context deadline exceeded
+Dec  5 22:18:30.639991	[34mINFO[0m	396.0489s [37;41m     ERROR[0m [36m<< cypress-provider[036] (cb3ca2) >>[0m context deadline exceeded
+Dec  5 22:18:30.639995	[34mINFO[0m	396.0512s [37;41m     ERROR[0m [90m<< cypress-provider[025] (827dc0) >>[0m context deadline exceeded
+Dec  5 22:18:30.639998	[34mINFO[0m	396.0512s [37;41m     ERROR[0m [33m<< cypress-provider[014] (f21480) >>[0m context deadline exceeded
+Dec  5 22:18:30.640001	[34mINFO[0m	396.0512s [37;41m     ERROR[0m [36m<< cypress-provider[006] (4dd312) >>[0m context deadline exceeded
+Dec  5 22:18:30.640002	[34mINFO[0m	396.0512s [37;41m     ERROR[0m [37m<< cypress-provider[001] (208def) >>[0m context deadline exceeded
+Dec  5 22:18:30.640004	[34mINFO[0m	396.0512s [37;41m     ERROR[0m [91m<< cypress-provider[002] (348fba) >>[0m context deadline exceeded
+Dec  5 22:18:30.640008	[34mINFO[0m	396.0512s [37;41m     ERROR[0m [36m<< cypress-provider[023] (5a3768) >>[0m context deadline exceeded
+Dec  5 22:18:30.640012	[34mINFO[0m	396.0512s [37;101mINCOMPLETE[0m [33m<< cypress-provider[014] (f21480) >>[0m 
+Dec  5 22:18:30.640015	[34mINFO[0m	396.0512s [37;41m     ERROR[0m [35m<< cypress-provider[000] (78f3a5) >>[0m context deadline exceeded
+Dec  5 22:18:30.640016	[34mINFO[0m	396.0512s [37;101mINCOMPLETE[0m [91m<< cypress-provider[002] (348fba) >>[0m 
+Dec  5 22:18:30.640020	[34mINFO[0m	396.0488s [37;41m     ERROR[0m [32m<< cypress-provider[008] (5baaed) >>[0m context deadline exceeded
+Dec  5 22:18:30.640024	[34mINFO[0m	396.0512s [37;41m     ERROR[0m [93m<< cypress-provider[019] (9e2975) >>[0m context deadline exceeded
+Dec  5 22:18:30.640026	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [37m<< cypress-provider[035] (626993) >>[0m 
+Dec  5 22:18:30.640023	[34mINFO[0m	396.0512s [37;41m     ERROR[0m [31m<< cypress-provider[030] (b367b2) >>[0m context deadline exceeded
+Dec  5 22:18:30.640027	[34mINFO[0m	396.0513s [37;41m     ERROR[0m [36m<< cypress-provider[047] (e1c875) >>[0m context deadline exceeded
+Dec  5 22:18:30.640031	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [36m<< cypress-provider[036] (cb3ca2) >>[0m 
+Dec  5 22:18:30.640031	[34mINFO[0m	396.0513s [37;41m     ERROR[0m [94m<< cypress-provider[003] (1e37ec) >>[0m context deadline exceeded
+Dec  5 22:18:30.640032	[34mINFO[0m	396.0467s [37;41m     ERROR[0m [32m<< cypress-provider[048] (18ed74) >>[0m context deadline exceeded
+Dec  5 22:18:30.640036	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [93m<< cypress-provider[019] (9e2975) >>[0m 
+Dec  5 22:18:30.640035	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [36m<< cypress-provider[006] (4dd312) >>[0m 
+Dec  5 22:18:30.640040	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [35m<< cypress-provider[000] (78f3a5) >>[0m 
+Dec  5 22:18:30.640044	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [94m<< cypress-provider[003] (1e37ec) >>[0m 
+Dec  5 22:18:30.640045	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [93m<< cypress-provider[020] (6e1ca9) >>[0m 
+Dec  5 22:18:30.640045	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [92m<< cypress-provider[034] (75e619) >>[0m 
+Dec  5 22:18:30.640033	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [90m<< cypress-provider[010] (08e5bd) >>[0m 
+Dec  5 22:18:30.640048	[34mINFO[0m	396.0513s [37;41m     ERROR[0m [96m<< cypress-provider[028] (557a1d) >>[0m context deadline exceeded
+Dec  5 22:18:30.640048	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [97m<< cypress-provider[005] (c82cf3) >>[0m 
+Dec  5 22:18:30.640049	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [96m<< cypress-provider[040] (4313c2) >>[0m 
+Dec  5 22:18:30.640049	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [97m<< cypress-provider[045] (98ccf5) >>[0m 
+Dec  5 22:18:30.640051	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [34m<< cypress-provider[012] (ae82db) >>[0m 
+Dec  5 22:18:30.640053	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [95m<< cypress-provider[046] (fa97d5) >>[0m 
+Dec  5 22:18:30.640053	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [32m<< cypress-provider[008] (5baaed) >>[0m 
+Dec  5 22:18:30.640054	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [36m<< cypress-provider[047] (e1c875) >>[0m 
+Dec  5 22:18:30.640055	[34mINFO[0m	396.0513s [37;41m     ERROR[0m [34m<< cypress-provider[029] (f7917d) >>[0m context deadline exceeded
+Dec  5 22:18:30.640055	[34mINFO[0m	396.0513s [37;41m     ERROR[0m [33m<< cypress-provider[033] (f9e547) >>[0m context deadline exceeded
+Dec  5 22:18:30.640056	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [33m<< cypress-provider[007] (207b1c) >>[0m 
+Dec  5 22:18:30.640057	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [31m<< cypress-provider[030] (b367b2) >>[0m 
+Dec  5 22:18:30.640061	[34mINFO[0m	396.0513s [37;41m     ERROR[0m [95m<< cypress-provider[021] (61c489) >>[0m context deadline exceeded
+Dec  5 22:18:30.640062	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [96m<< cypress-provider[028] (557a1d) >>[0m 
+Dec  5 22:18:30.640064	[34mINFO[0m	396.0513s [37;41m     ERROR[0m [32m<< cypress-provider[024] (2e81fa) >>[0m context deadline exceeded
+Dec  5 22:18:30.640063	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [37m<< cypress-provider[011] (c054dd) >>[0m 
+Dec  5 22:18:30.640065	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [33m<< cypress-provider[033] (f9e547) >>[0m 
+Dec  5 22:18:30.639983	[34mINFO[0m	396.0512s [37;41m     ERROR[0m [94m<< cypress-provider[044] (db5236) >>[0m context deadline exceeded
+Dec  5 22:18:30.640068	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [32m<< cypress-provider[024] (2e81fa) >>[0m 
+Dec  5 22:18:30.640070	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [96m<< cypress-provider[016] (4a558c) >>[0m 
+Dec  5 22:18:30.640071	[34mINFO[0m	396.0467s [37;41m     ERROR[0m [96m<< cypress-provider[016] (4a558c) >>[0m context deadline exceeded
+Dec  5 22:18:30.640073	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [95m<< cypress-provider[013] (c25ca6) >>[0m 
+Dec  5 22:18:30.640073	[34mINFO[0m	396.0513s [37;41m     ERROR[0m [35m<< cypress-provider[032] (9cd8df) >>[0m context deadline exceeded
+Dec  5 22:18:30.640072	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [35m<< cypress-provider[032] (9cd8df) >>[0m 
+Dec  5 22:18:30.640081	[34mINFO[0m	396.0512s [37;41m     ERROR[0m [95m<< cypress-provider[013] (c25ca6) >>[0m context deadline exceeded
+Dec  5 22:18:30.640087	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [91m<< cypress-provider[026] (5d94ba) >>[0m 
+Dec  5 22:18:30.640090	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [95m<< cypress-provider[021] (61c489) >>[0m 
+Dec  5 22:18:30.640093	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [34m<< cypress-provider[018] (401eb2) >>[0m 
+Dec  5 22:18:30.640093	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [94m<< cypress-provider[027] (5fbea7) >>[0m 
+Dec  5 22:18:30.640095	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [37m<< cypress-provider[001] (208def) >>[0m 
+Dec  5 22:18:30.640097	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [97m<< cypress-provider[031] (781114) >>[0m 
+Dec  5 22:18:30.640098	[34mINFO[0m	396.0513s [37;41m     ERROR[0m [34m<< cypress-provider[018] (401eb2) >>[0m context deadline exceeded
+Dec  5 22:18:30.640099	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [90m<< cypress-provider[025] (827dc0) >>[0m 
+Dec  5 22:18:30.640100	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [92m<< cypress-provider[009] (b93ea3) >>[0m 
+Dec  5 22:18:30.640103	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [35m<< cypress-provider[015] (c8c7a8) >>[0m 
+Dec  5 22:18:30.640104	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [36m<< cypress-provider[023] (5a3768) >>[0m 
+Dec  5 22:18:30.640105	[34mINFO[0m	396.0512s [37;41m     ERROR[0m [35m<< cypress-provider[015] (c8c7a8) >>[0m context deadline exceeded
+Dec  5 22:18:30.640073	[34mINFO[0m	396.0513s [37;41m     ERROR[0m [92m<< cypress-provider[009] (b93ea3) >>[0m context deadline exceeded
+Dec  5 22:18:30.640057	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [94m<< cypress-provider[044] (db5236) >>[0m 
+Dec  5 22:18:30.640115	[34mINFO[0m	396.0513s [37;41m     ERROR[0m [97m<< cypress-provider[031] (781114) >>[0m context deadline exceeded
+Dec  5 22:18:30.641763	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [34m<< cypress-provider[029] (f7917d) >>[0m 
+Dec  5 22:18:30.641788	[34mINFO[0m	396.0512s [37;101mINCOMPLETE[0m [91m<< cypress-provider[043] (34f81c) >>[0m 
+Dec  5 22:18:30.640093	[34mINFO[0m	396.0513s [37;101mINCOMPLETE[0m [92m<< cypress-provider[022] (7d7ab0) >>[0m 
+Dec  5 22:18:30.620246	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.630714	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620249	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.631135	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620254	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620897	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.632720	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620228	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620908	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620911	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620913	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620915	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620918	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620920	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620922	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620924	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620931	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620932	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620935	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620944	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620948	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620950	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620953	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620959	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.629793	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620965	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620963	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620969	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620973	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620975	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620977	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.629348	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.629788	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620196	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.620966	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.637631	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.639972	[34mINFO[0m	container group exited	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g"}
+Dec  5 22:18:30.669007	[34mINFO[0m	deleting containers	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "ids": ["78f3a51e2085dadbea7807ab673f7e2d1bdc6384566e984eebf6a963c9c875a4", "208defd38d4a7ab82fa91649ab24676881055bb38b0929ec2f3f797832b6dcc1", "348fbabae87feef2699de765a357d3fbe5b9096ef44872c06e8538183b92268b", "1e37ecef6d07792f066c86a883635d9d30e1c78ec9e60e8f5c8c1e66c3106dd6", "8560f324736a842bc830d681fa5cc0caf019829db68056f3b17cd794e80c6440", "c82cf3b013c8fcb53bb77cb21f19eac45b587ce5ca6f795c6e40a5533a11475d", "4dd3129fc3aa3bf7f02dda0d71ceaefcc19ab9cc7353b11c597f92169c9ec900", "207b1ce0b4016b89065895a0c4f797118808c863f6677042fcb848003edce070", "5baaed07555f8d707bbca66dff19b1bdbc537003550d66e7ae9b5f1def08f7bb", "b93ea353702c2acd73e46b45a4577553bb9ca14bfa4f4c45f5235052a38ee7f7", "08e5bdca70627061a94bd2a056fea45bfe96184640eafa2bbf60e05ac5f434d3", "c054dddb8ff7a062806b51bd3fb1a274efe082422d33b501c2f9793c6b7e90dc", "ae82db5fe24f0b00503b9eddf748e10683c8ccf205af5ac0d615acf684333a2d", "c25ca651eb80fd09c39fd99d44011b11cc894aa3f2ef4f38b628f6909f9138f6", "f21480d6c69c739b60a944db4053be8204937e580ab5c199ccbd1a04818dd759", "c8c7a8fcceb4a389b6c37c28614cc5a4d2b0f6149486db8924d6977902a3e878", "4a558c980522b6ee55f1009cd88f48e083d7bea86d24e8c1646792ff62e00d5c", "abd6a9e69e67825fdaa58c8b092333186298e941553f9ddd70c5e0542d5749f9", "401eb22d024ad48fea9803c4cf0b7d46be969d5e00e77ac1960345f6a16eea5d", "9e2975c7bf0a1de2cddeb76a956afabe54d167d6786d798e43fd39132f069af9", "6e1ca9935f0d04458ae8cde6392f5ce7fe9bb63625430818f28b10ee5430e283", "61c489e2ee4a18411bfe8c37bc38ea8b2c4005a76ae8595221f91a255d1e0230", "7d7ab06e05902af65569764edbfd4ef964d15ea4405910b2e390aeb0c748251b", "5a3768cb4dc126ac8d2592f740cdd94229a22b308e168116deaf0e6b5e47806b", "2e81fa2ff1a04638f52cd5f021547fd1c9ff4b099b522edfcaad51b6f12885a0", "827dc0981c554bd9056f89d2b4cf1cb975f5cbc21ba93e9030d42e418a82426a", "5d94bac7f69c4e456881da6e60de54e00680ca6ebf1672af6daa446f3cb1d349", "5fbea76a266be5cd2016122ef94ce8e19c616173694d075452dae2f2d7112849", "557a1d38a77974e268c312d4d27271d9826222170ae979d53a40614c0d196a62", "f7917d5693bd63f921bec1e092bc5e5e03b8a3b73c197d7510ca35b06e27cbc9", "b367b2f99ebbd2cf0a1e4da892af65b38caa7f06ae2e841b729f83d16a8be2b6", "78111420bcb3ede06cd0b4c7b0ec0e3f02c857c729a21703919ae2c9124dbfe3", "9cd8dfc697f1962849de659f1bba2a9788365eebead3e88cce27397c80c24752", "f9e5472a10daf480f9d45eb0e1d0bbb3a7f7152fd4a667965d297a46186f56f8", "75e6190ebc6d60de800baa6dd47cc3661334cea087367b17acad056739b1e31d", "626993b8a957d5e75a56103cc506776a8797eda5b6db45752c0ebd9547c7d318", "cb3ca2275badfad5f7e0ec6b33b5b34adfb0b46d8264bdac90d5768847c6bd4d", "c93e5c6d264ebb1fcbc8a969ea401ce4607ac3e5652a55a8957f8ab464414273", "e6887a0013b1df3634c0343d95454271c17cc479a09419425be1275705c29c28", "efcc389555d925eba0bdcde7cdd06fe7e8e03ae549b0bfe3de79514e96373821", "4313c2723233662cbd88c66ba1cdd809b758d2a5e59c3d26c42a42f3cd9377ab", "3df24c4f703f409b567f89a4a1d32cfac1501df9307a064b37c7c8ead0bd8eef", "80067dcdb9c228e8cc6f9fd640c41201a6e89d6dd44a9f1269a000888756d8c4", "34f81cdb93db4c3a467a213c1ce8dff6e5064a98aa26183ef15f8f89213ee52d", "db52361ae4ef9b4609ece1e0023b61a6df3e89d07b5c4dce01610b8215707494", "98ccf545528c263e3cf6a5c8f3a714a645e2a4f677f07fd01f5907cdd3435d4b", "fa97d53c46050e240dd2d9568f9ce619ac70946569457fe44c10e0011e909bb6", "e1c875f476febe11ebda6d31cff7f1dd15f2ba7594a83a08dcfa5ef88b945e88", "18ed74221b6c455696740f801355033f60a06669bc182a20626c43bef21eaed1", "2c6ba79d47d6e3b64fed69c878063b4aa72f2a13050ddc35d3f523209d78d742"]}
+Dec  5 22:18:30.671319	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "2e81fa2ff1a04638f52cd5f021547fd1c9ff4b099b522edfcaad51b6f12885a0"}
+Dec  5 22:18:30.671342	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "5fbea76a266be5cd2016122ef94ce8e19c616173694d075452dae2f2d7112849"}
+Dec  5 22:18:30.671384	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "557a1d38a77974e268c312d4d27271d9826222170ae979d53a40614c0d196a62"}
+Dec  5 22:18:30.671452	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c25ca651eb80fd09c39fd99d44011b11cc894aa3f2ef4f38b628f6909f9138f6"}
+Dec  5 22:18:30.671494	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "f21480d6c69c739b60a944db4053be8204937e580ab5c199ccbd1a04818dd759"}
+Dec  5 22:18:30.671330	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "827dc0981c554bd9056f89d2b4cf1cb975f5cbc21ba93e9030d42e418a82426a"}
+Dec  5 22:18:30.671316	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "2c6ba79d47d6e3b64fed69c878063b4aa72f2a13050ddc35d3f523209d78d742"}
+Dec  5 22:18:30.671501	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c8c7a8fcceb4a389b6c37c28614cc5a4d2b0f6149486db8924d6977902a3e878"}
+Dec  5 22:18:30.671505	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "4a558c980522b6ee55f1009cd88f48e083d7bea86d24e8c1646792ff62e00d5c"}
+Dec  5 22:18:30.671509	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "abd6a9e69e67825fdaa58c8b092333186298e941553f9ddd70c5e0542d5749f9"}
+Dec  5 22:18:30.671513	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "401eb22d024ad48fea9803c4cf0b7d46be969d5e00e77ac1960345f6a16eea5d"}
+Dec  5 22:18:30.671518	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "9e2975c7bf0a1de2cddeb76a956afabe54d167d6786d798e43fd39132f069af9"}
+Dec  5 22:18:30.671337	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "5d94bac7f69c4e456881da6e60de54e00680ca6ebf1672af6daa446f3cb1d349"}
+Dec  5 22:18:30.671522	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "5a3768cb4dc126ac8d2592f740cdd94229a22b308e168116deaf0e6b5e47806b"}
+Dec  5 22:18:30.671479	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "6e1ca9935f0d04458ae8cde6392f5ce7fe9bb63625430818f28b10ee5430e283"}
+Dec  5 22:18:30.671526	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "61c489e2ee4a18411bfe8c37bc38ea8b2c4005a76ae8595221f91a255d1e0230"}
+Dec  5 22:18:37.582512	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "7d7ab06e05902af65569764edbfd4ef964d15ea4405910b2e390aeb0c748251b"}
+Dec  5 22:18:37.753230	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "e6887a0013b1df3634c0343d95454271c17cc479a09419425be1275705c29c28"}
+Dec  5 22:18:38.352382	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "f7917d5693bd63f921bec1e092bc5e5e03b8a3b73c197d7510ca35b06e27cbc9"}
+Dec  5 22:18:39.629186	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "b367b2f99ebbd2cf0a1e4da892af65b38caa7f06ae2e841b729f83d16a8be2b6"}
+Dec  5 22:18:39.645782	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "78111420bcb3ede06cd0b4c7b0ec0e3f02c857c729a21703919ae2c9124dbfe3"}
+Dec  5 22:18:40.028037	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "9cd8dfc697f1962849de659f1bba2a9788365eebead3e88cce27397c80c24752"}
+Dec  5 22:18:40.260863	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "f9e5472a10daf480f9d45eb0e1d0bbb3a7f7152fd4a667965d297a46186f56f8"}
+Dec  5 22:18:40.460556	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "75e6190ebc6d60de800baa6dd47cc3661334cea087367b17acad056739b1e31d"}
+Dec  5 22:18:40.528030	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "626993b8a957d5e75a56103cc506776a8797eda5b6db45752c0ebd9547c7d318"}
+Dec  5 22:18:40.768649	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "cb3ca2275badfad5f7e0ec6b33b5b34adfb0b46d8264bdac90d5768847c6bd4d"}
+Dec  5 22:18:41.267983	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c93e5c6d264ebb1fcbc8a969ea401ce4607ac3e5652a55a8957f8ab464414273"}
+Dec  5 22:18:41.280153	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "4dd3129fc3aa3bf7f02dda0d71ceaefcc19ab9cc7353b11c597f92169c9ec900"}
+Dec  5 22:18:41.366499	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "78f3a51e2085dadbea7807ab673f7e2d1bdc6384566e984eebf6a963c9c875a4"}
+Dec  5 22:18:41.446530	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "208defd38d4a7ab82fa91649ab24676881055bb38b0929ec2f3f797832b6dcc1"}
+Dec  5 22:18:41.505199	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "348fbabae87feef2699de765a357d3fbe5b9096ef44872c06e8538183b92268b"}
+Dec  5 22:18:41.681107	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "1e37ecef6d07792f066c86a883635d9d30e1c78ec9e60e8f5c8c1e66c3106dd6"}
+Dec  5 22:18:42.371013	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "8560f324736a842bc830d681fa5cc0caf019829db68056f3b17cd794e80c6440"}
+Dec  5 22:18:42.393158	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c82cf3b013c8fcb53bb77cb21f19eac45b587ce5ca6f795c6e40a5533a11475d"}
+Dec  5 22:18:43.157569	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "efcc389555d925eba0bdcde7cdd06fe7e8e03ae549b0bfe3de79514e96373821"}
+Dec  5 22:18:43.801802	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "4313c2723233662cbd88c66ba1cdd809b758d2a5e59c3d26c42a42f3cd9377ab"}
+Dec  5 22:18:44.027031	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "3df24c4f703f409b567f89a4a1d32cfac1501df9307a064b37c7c8ead0bd8eef"}
+Dec  5 22:18:44.053873	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "80067dcdb9c228e8cc6f9fd640c41201a6e89d6dd44a9f1269a000888756d8c4"}
+Dec  5 22:18:44.227270	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "34f81cdb93db4c3a467a213c1ce8dff6e5064a98aa26183ef15f8f89213ee52d"}
+Dec  5 22:18:45.384331	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "db52361ae4ef9b4609ece1e0023b61a6df3e89d07b5c4dce01610b8215707494"}
+Dec  5 22:18:45.471875	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "98ccf545528c263e3cf6a5c8f3a714a645e2a4f677f07fd01f5907cdd3435d4b"}
+Dec  5 22:18:45.633011	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "fa97d53c46050e240dd2d9568f9ce619ac70946569457fe44c10e0011e909bb6"}
+Dec  5 22:18:45.707605	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "e1c875f476febe11ebda6d31cff7f1dd15f2ba7594a83a08dcfa5ef88b945e88"}
+Dec  5 22:18:45.719358	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "18ed74221b6c455696740f801355033f60a06669bc182a20626c43bef21eaed1"}
+Dec  5 22:18:46.376386	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "207b1ce0b4016b89065895a0c4f797118808c863f6677042fcb848003edce070"}
+Dec  5 22:18:46.573993	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "5baaed07555f8d707bbca66dff19b1bdbc537003550d66e7ae9b5f1def08f7bb"}
+Dec  5 22:18:46.837932	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "b93ea353702c2acd73e46b45a4577553bb9ca14bfa4f4c45f5235052a38ee7f7"}
+Dec  5 22:18:47.483927	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "08e5bdca70627061a94bd2a056fea45bfe96184640eafa2bbf60e05ac5f434d3"}
+Dec  5 22:18:47.563659	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "c054dddb8ff7a062806b51bd3fb1a274efe082422d33b501c2f9793c6b7e90dc"}
+Dec  5 22:18:47.653756	[34mINFO[0m	deleting container	{"runner": "local:docker", "run_id": "ce76nnnrirfmm1bnto2g", "id": "ae82db5fe24f0b00503b9eddf748e10683c8ccf205af5ac0d615acf684333a2d"}
+Dec  5 22:18:49.349305	[34mINFO[0m	run finished with outcome = failure (balsam-dialable-provider:0/0 cypress-provider:0/50)	{"run_id": "ce76nnnrirfmm1bnto2g", "plan": "dht", "case": "find-providers", "runner": "local:docker", "instances": 50}
+[1;92m
+>>> Result:
+[0m
+Dec  5 22:18:52.152204	[34mINFO[0m	finished run with ID: ce76nnnrirfmm1bnto2g
+run outcome: failure
