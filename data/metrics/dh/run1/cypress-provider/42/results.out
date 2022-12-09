@@ -1,0 +1,10 @@
+{"ts":1670288477276988761,"type":"point","name":"signal bootstrapping0","measures":{"value":27365917}}
+{"ts":1670288478677452137,"type":"point","name":"barrierbootstrapping0","measures":{"value":1397841709}}
+{"ts":1670288478701406928,"type":"point","name":"full bootstrapping0","measures":{"value":39571676810}}
+{"ts":1670288481730292971,"type":"point","name":"time-to-provide-0","measures":{"value":2365559126}}
+{"ts":1670288481760606596,"type":"point","name":"signal provider-records1","measures":{"value":25303500}}
+{"ts":1670288482208698055,"type":"point","name":"barrierprovider-records1","measures":{"value":446634292}}
+{"ts":1670288482250270555,"type":"point","name":"full provider-records1","measures":{"value":3075328793}}
+{"ts":1670288483934209833,"type":"point","name":"signal provider-records2","measures":{"value":25570292}}
+{"ts":1670288484177321917,"type":"point","name":"barrierprovider-records2","measures":{"value":235561792}}
+{"ts":1670288484205799083,"type":"point","name":"full provider-records2","measures":{"value":297171625}}

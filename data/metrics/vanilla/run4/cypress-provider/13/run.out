@@ -1,0 +1,19 @@
+{"ts":1670451425288627547,"msg":"","group_id":"cypress-provider","run_id":"ce8h0pfrirfu2nojhmng","event":{"message_event":{"message":"registering default http handler at: http://[::]:6060/ (pprof: http://[::]:6060/debug/pprof/)"}}}
+{"ts":1670451425299944047,"msg":"","group_id":"cypress-provider","run_id":"ce8h0pfrirfu2nojhmng","event":{"start_event":{"runenv":{"plan":"dht","case":"find-providers","run":"ce8h0pfrirfu2nojhmng","params":{"alpha":"6","auto_refresh":"true","beta":"3","bootstrapper":"true","bs_strategy":"3","bucket_size":"10","client_mode":"false","datastore":"0","expect_dht":"true","group_order":"1","latency":"100","peer_id_seed":"0","random_walk":"false","record_count":"1","record_seed":"0","search_records":"false","timeout_secs":"500","undialable":"false"},"instances":50,"outputs_path":"/outputs","temp_path":"/temp","network":"16.17.0.0/16","group":"cypress-provider","group_instances":50}}}}
+{"ts":1670451425336798130,"msg":"","group_id":"cypress-provider","run_id":"ce8h0pfrirfu2nojhmng","event":{"message_event":{"message":"waiting for network to initialize"}}}
+{"ts":1670451432824316092,"msg":"","group_id":"cypress-provider","run_id":"ce8h0pfrirfu2nojhmng","event":{"message_event":{"message":"network initialisation successful"}}}
+{"ts":1670451432955442051,"msg":"","group_id":"cypress-provider","run_id":"ce8h0pfrirfu2nojhmng","event":{"message_event":{"message":"network initialization complete"}}}
+{"ts":1670451433259473301,"msg":"","group_id":"cypress-provider","run_id":"ce8h0pfrirfu2nojhmng","event":{"message_event":{"message":"claimed sequence numbers; global=28, group(cypress-provider)=30"}}}
+{"ts":1670451433265672634,"msg":"","group_id":"cypress-provider","run_id":"ce8h0pfrirfu2nojhmng","event":{"message_event":{"message":"Finding providers"}}}
+{"ts":1670451433642044134,"msg":"","group_id":"cypress-provider","run_id":"ce8h0pfrirfu2nojhmng","event":{"message_event":{"message":"network initialisation successful"}}}
+{"ts":1670451433699150468,"msg":"","group_id":"cypress-provider","run_id":"ce8h0pfrirfu2nojhmng","event":{"message_event":{"message":"SetupNetwork, network setup completed"}}}
+{"ts":1670451438402222553,"msg":"","group_id":"cypress-provider","run_id":"ce8h0pfrirfu2nojhmng","event":{"message_event":{"message":"there are 1 groups map[cypress-provider:0x4001b88d20]"}}}
+{"ts":1670451438640765512,"msg":"","group_id":"cypress-provider","run_id":"ce8h0pfrirfu2nojhmng","event":{"message_event":{"message":"sortedGroup order []"}}}
+{"ts":1670451438837761387,"msg":"","group_id":"cypress-provider","run_id":"ce8h0pfrirfu2nojhmng","event":{"message_event":{"message":"past group info"}}}
+{"ts":1670451439462739845,"msg":"","group_id":"cypress-provider","run_id":"ce8h0pfrirfu2nojhmng","event":{"message_event":{"message":"connmgr parameters: hi=12, lo=6"}}}
+{"ts":1670451440726090138,"msg":"","group_id":"cypress-provider","run_id":"ce8h0pfrirfu2nojhmng","event":{"message_event":{"message":"creating DHT"}}}
+{"ts":1670451440731256138,"msg":"","group_id":"cypress-provider","run_id":"ce8h0pfrirfu2nojhmng","event":{"message_event":{"message":"creating DHT successful"}}}
+{"ts":1670451442793946972,"msg":"","group_id":"cypress-provider","run_id":"ce8h0pfrirfu2nojhmng","event":{"message_event":{"message":"41 is waiting on 0 from state 0"}}}
+{"ts":1670451443831822583,"msg":"requested a barrier with target zero; satisfying immediately","group_id":"cypress-provider","run_id":"ce8h0pfrirfu2nojhmng","state":"boostrap-gradual1-0"}
+{"ts":1670451443981496083,"msg":"","group_id":"cypress-provider","run_id":"ce8h0pfrirfu2nojhmng","event":{"message_event":{"message":"41 is running"}}}
+{"ts":1670451445676829459,"msg":"error while reading socket","group_id":"cypress-provider","run_id":"ce8h0pfrirfu2nojhmng","error":"failed to read JSON message: failed to get reader: WebSocket closed: write timed out: context deadline exceeded"}
